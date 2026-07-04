@@ -4,7 +4,7 @@
 
     <groupId>me.melkx</groupId>
     <artifactId>jwt-module-parent</artifactId>
-    <version>jwt-0.0.1</version>
+    <version>0.0.1</version>
     <name>Jwt Module Parent</name>
     <packaging>pom</packaging>
 
@@ -25,14 +25,14 @@
             <dependency>
                 <groupId>me.melkx</groupId>
                 <artifactId>ecs-bom-spring</artifactId>
-                <version>conf-0.0.1</version>
+                <version>0.0.1</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
             <dependency>
                 <groupId>me.melkx</groupId>
                 <artifactId>ecs-bom-core</artifactId>
-                <version>conf-0.0.1</version>
+                <version>0.0.1</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
