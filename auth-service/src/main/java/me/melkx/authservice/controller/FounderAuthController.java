@@ -5,16 +5,37 @@ import me.melkx.authenticationmodule.dto.CommonPrincipal;
 import me.melkx.authservice.dto.JwtTokenPairResponse;
 import me.melkx.authservice.dto.SignInCredentialsRequest;
 import me.melkx.authservice.dto.SignUpCredentialsRequest;
+import me.melkx.authservice.service.FounderService;
+import me.melkx.jwtmodule.core.api.dto.FounderAccessTokenClaims;
+import me.melkx.jwtmodule.core.api.dto.FounderRefreshTokenClaims;
+import me.melkx.jwtmodule.core.api.dto.JwtTokenType;
+import me.melkx.jwtmodule.core.api.service.JwtGenerator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
-@RequestMapping("/api/v1/auth/founder")
+@RequestMapping("/v1/api/auth/founder")
 public class FounderAuthController {
+    private final FounderService founderService;
+    private final JwtGenerator jwtGenerator;
+
+    @Autowired
+    public FounderAuthController(FounderService founderService, JwtGenerator jwtGenerator) {
+        this.founderService = founderService;
+        this.jwtGenerator = jwtGenerator;
+    }
+
     @PostMapping("/sign-up")
     public ResponseEntity<JwtTokenPairResponse> signUp(@Valid @RequestBody SignUpCredentialsRequest credentials) {
-        return null;
+        UUID id = founderService.createFounder(credentials);
+        return ResponseEntity.ok(new JwtTokenPairResponse(
+                jwtGenerator.generateFounderAccessToken(new FounderAccessTokenClaims(id)),
+                jwtGenerator.generateFounderRefreshToken(new FounderRefreshTokenClaims(id))
+        ));
     }
 
     @PostMapping("/sign-in")

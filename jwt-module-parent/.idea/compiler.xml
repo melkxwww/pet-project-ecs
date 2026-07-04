@@ -8,7 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="jwt-module-spring-starter" />
       </profile>
-      <profile name="Annotation profile for Jwt Module Parent" enabled="true">
+      <profile name="Annotation profile for jwt-module-parent" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />

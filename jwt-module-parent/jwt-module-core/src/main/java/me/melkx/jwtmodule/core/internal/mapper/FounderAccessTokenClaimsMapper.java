@@ -11,15 +11,13 @@ public class FounderAccessTokenClaimsMapper extends AbstractJwtClaimsMapper<Foun
     @Override
     protected Claims mapTokenClaimsInternal(FounderAccessTokenClaims tokenClaims, Claims claims) {
         claims.put(JwtClaimFields.ID, tokenClaims.id());
-        claims.put(JwtClaimFields.TOKEN_TYPE, tokenClaims.tokenType());
         return claims;
     }
 
     @Override
     protected FounderAccessTokenClaims parseTokenClaimsInternal(Claims claims) {
         return new FounderAccessTokenClaims(
-                UuidUtils.parseUUID(claims.get(JwtClaimFields.ID, String.class)),
-                JwtTokenType.fromType(claims.get(JwtClaimFields.TOKEN_TYPE, String.class))
+                UuidUtils.parseUUID(claims.get(JwtClaimFields.ID, String.class))
         );
     }
 }

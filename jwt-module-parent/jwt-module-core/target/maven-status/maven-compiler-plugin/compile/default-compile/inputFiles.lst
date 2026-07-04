@@ -1,0 +1,15 @@
+C:\Users\defix\Documents\Projects\Java\ECS\jwt-module-parent\jwt-module-core\src\main\java\me\melkx\jwtmodule\core\api\dto\FounderAccessTokenClaims.java
+C:\Users\defix\Documents\Projects\Java\ECS\jwt-module-parent\jwt-module-core\src\main\java\me\melkx\jwtmodule\core\api\dto\FounderRefreshTokenClaims.java
+C:\Users\defix\Documents\Projects\Java\ECS\jwt-module-parent\jwt-module-core\src\main\java\me\melkx\jwtmodule\core\api\dto\JwtTokenType.java
+C:\Users\defix\Documents\Projects\Java\ECS\jwt-module-parent\jwt-module-core\src\main\java\me\melkx\jwtmodule\core\api\exception\JwtInternalException.java
+C:\Users\defix\Documents\Projects\Java\ECS\jwt-module-parent\jwt-module-core\src\main\java\me\melkx\jwtmodule\core\api\exception\JwtInvalidTokenException.java
+C:\Users\defix\Documents\Projects\Java\ECS\jwt-module-parent\jwt-module-core\src\main\java\me\melkx\jwtmodule\core\api\service\JwtGenerator.java
+C:\Users\defix\Documents\Projects\Java\ECS\jwt-module-parent\jwt-module-core\src\main\java\me\melkx\jwtmodule\core\api\service\JwtParser.java
+C:\Users\defix\Documents\Projects\Java\ECS\jwt-module-parent\jwt-module-core\src\main\java\me\melkx\jwtmodule\core\api\service\JwtSecretKeyProvider.java
+C:\Users\defix\Documents\Projects\Java\ECS\jwt-module-parent\jwt-module-core\src\main\java\me\melkx\jwtmodule\core\internal\constant\JwtClaimFields.java
+C:\Users\defix\Documents\Projects\Java\ECS\jwt-module-parent\jwt-module-core\src\main\java\me\melkx\jwtmodule\core\internal\constant\JwtValidityTimes.java
+C:\Users\defix\Documents\Projects\Java\ECS\jwt-module-parent\jwt-module-core\src\main\java\me\melkx\jwtmodule\core\internal\mapper\AbstractJwtClaimsMapper.java
+C:\Users\defix\Documents\Projects\Java\ECS\jwt-module-parent\jwt-module-core\src\main\java\me\melkx\jwtmodule\core\internal\mapper\FounderAccessTokenClaimsMapper.java
+C:\Users\defix\Documents\Projects\Java\ECS\jwt-module-parent\jwt-module-core\src\main\java\me\melkx\jwtmodule\core\internal\mapper\FounderRefreshTokenClaimsMapper.java
+C:\Users\defix\Documents\Projects\Java\ECS\jwt-module-parent\jwt-module-core\src\main\java\me\melkx\jwtmodule\core\internal\mapper\JwtClaimsMapper.java
+C:\Users\defix\Documents\Projects\Java\ECS\jwt-module-parent\jwt-module-core\src\main\java\me\melkx\jwtmodule\core\internal\util\UuidUtils.java

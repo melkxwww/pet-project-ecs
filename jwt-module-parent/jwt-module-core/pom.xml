@@ -9,7 +9,7 @@
     </parent>
 
     <artifactId>jwt-module-core</artifactId>
-    <name>Jwt Module Core</name>
+    <name>jwt-module-core</name>
 
     <dependencies>
         <dependency>

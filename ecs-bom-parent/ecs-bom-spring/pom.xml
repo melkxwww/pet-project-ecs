@@ -10,7 +10,7 @@
     </parent>
 
     <artifactId>ecs-bom-spring</artifactId>
-    <name>ECS Bom Spring</name>
+    <name>ecs-bom-spring</name>
     <packaging>pom</packaging>
 
     <dependencyManagement>
@@ -44,6 +44,11 @@
                 <groupId>me.melkx</groupId>
                 <artifactId>jwt-module-spring-starter</artifactId>
                 <version>${jwt-module-spring-starter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>me.melkx</groupId>
+                <artifactId>ecs-shared</artifactId>
+                <version>${ecs-shared.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

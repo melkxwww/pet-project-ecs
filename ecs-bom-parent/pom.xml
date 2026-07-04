@@ -10,7 +10,7 @@
     </parent>
 
     <artifactId>ecs-bom-parent</artifactId>
-    <name>ECS Bom Common</name>
+    <name>ecs-bom-parent</name>
     <packaging>pom</packaging>
 
     <modules>

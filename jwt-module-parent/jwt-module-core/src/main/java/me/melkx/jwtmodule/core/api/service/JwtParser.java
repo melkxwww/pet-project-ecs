@@ -9,13 +9,14 @@ import me.melkx.jwtmodule.core.api.dto.FounderRefreshTokenClaims;
 import me.melkx.jwtmodule.core.api.exception.JwtInternalException;
 import me.melkx.jwtmodule.core.api.exception.JwtInvalidTokenException;
 import me.melkx.jwtmodule.core.internal.constant.JwtClaimFields;
+import me.melkx.jwtmodule.core.internal.mapper.FounderAccessTokenClaimsMapper;
+import me.melkx.jwtmodule.core.internal.mapper.FounderRefreshTokenClaimsMapper;
 import me.melkx.jwtmodule.core.internal.mapper.JwtClaimsMapper;
-import me.melkx.jwtmodule.core.internal.mapper.JwtClaimsMapperFactory;
 
 public class JwtParser {
     private final JwtSecretKeyProvider secretKeyProvider;
-    private final JwtClaimsMapper<FounderAccessTokenClaims> founderAccessClaimsMapper = JwtClaimsMapperFactory.createFounderAccessClaimsMapper();
-    private final JwtClaimsMapper<FounderRefreshTokenClaims> founderRefreshClaimsMapper = JwtClaimsMapperFactory.createFounderRefreshClaimsMapper();
+    private final JwtClaimsMapper<FounderAccessTokenClaims> founderAccessClaimsMapper = new FounderAccessTokenClaimsMapper();
+    private final JwtClaimsMapper<FounderRefreshTokenClaims> founderRefreshClaimsMapper = new FounderRefreshTokenClaimsMapper();
 
     public JwtParser(JwtSecretKeyProvider secretKeyProvider) {
         this.secretKeyProvider = secretKeyProvider;

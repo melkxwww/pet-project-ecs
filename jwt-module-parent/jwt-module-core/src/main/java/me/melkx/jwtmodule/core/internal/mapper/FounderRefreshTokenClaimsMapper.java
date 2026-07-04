@@ -10,15 +10,13 @@ public class FounderRefreshTokenClaimsMapper extends AbstractJwtClaimsMapper<Fou
     @Override
     protected Claims mapTokenClaimsInternal(FounderRefreshTokenClaims tokenClaims, Claims claims) {
         claims.put(JwtClaimFields.ID, tokenClaims.id());
-        claims.put(JwtClaimFields.TOKEN_TYPE, tokenClaims.tokenType());
         return claims;
     }
 
     @Override
     protected FounderRefreshTokenClaims parseTokenClaimsInternal(Claims claims) {
         return new FounderRefreshTokenClaims(
-                UuidUtils.parseUUID(claims.get(JwtClaimFields.ID, String.class)),
-                JwtTokenType.fromType(claims.get(JwtClaimFields.TOKEN_TYPE, String.class))
+                UuidUtils.parseUUID(claims.get(JwtClaimFields.ID, String.class))
         );
     }
 }

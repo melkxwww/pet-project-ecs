@@ -1,7 +1,7 @@
 package me.melkx.authservice.controller;
 
 import jakarta.validation.Valid;
-import me.melkx.authenticationmodule.dto.CommonPrincipal;
+import me.melkx.authmodule.dto.CommonPrincipal;
 import me.melkx.authservice.dto.JwtTokenPairResponse;
 import me.melkx.authservice.dto.SignInCredentialsRequest;
 import org.springframework.http.ResponseEntity;
@@ -9,7 +9,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/auth/employee")
+@RequestMapping("/v1/api/auth/employee")
 public class EmployeeAuthController {
     @PostMapping("/sign-in")
     public ResponseEntity<JwtTokenPairResponse> signIn(@Valid @RequestBody SignInCredentialsRequest credentials) {

@@ -10,7 +10,7 @@
     </parent>
 
     <artifactId>jwt-module-spring-starter</artifactId>
-    <name>Jwt Module Spring Starter</name>
+    <name>jwt-module-spring-starter</name>
 
     <dependencies>
         <dependency>

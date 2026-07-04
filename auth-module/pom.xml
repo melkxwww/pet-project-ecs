@@ -6,7 +6,7 @@
     <groupId>me.melkx</groupId>
     <artifactId>auth-module</artifactId>
     <version>0.0.1</version>
-    <name>Auth Module</name>
+    <name>auth-module</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -39,6 +39,10 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aspectj</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>me.melkx</groupId>
+            <artifactId>ecs-shared</artifactId>
         </dependency>
     </dependencies>
 
