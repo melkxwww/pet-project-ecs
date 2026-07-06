@@ -23,5 +23,7 @@
         <jjwt-jackson.version>0.12.6</jjwt-jackson.version>
         <dotenv-java.version>3.0.0</dotenv-java.version>
         <ecs-shared.version>0.0.1</ecs-shared.version>
+        <jackson-annotations.version>2.21</jackson-annotations.version>
+        <jackson-databind.version>2.22.0</jackson-databind.version>
     </properties>
 </project>
