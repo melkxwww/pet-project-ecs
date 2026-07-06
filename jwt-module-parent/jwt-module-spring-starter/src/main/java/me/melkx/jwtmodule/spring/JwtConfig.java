@@ -1,8 +1,8 @@
 package me.melkx.jwtmodule.spring;
 
-import me.melkx.jwtmodule.core.api.service.JwtSecretKeyProvider;
-import me.melkx.jwtmodule.core.api.service.JwtService;
-import me.melkx.jwtmodule.core.api.service.JwtServiceImpl;
+import me.melkx.jwtmodule.core.service.JwtSecretKeyProvider;
+import me.melkx.jwtmodule.core.service.JwtService;
+import me.melkx.jwtmodule.core.service.JwtServiceImpl;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

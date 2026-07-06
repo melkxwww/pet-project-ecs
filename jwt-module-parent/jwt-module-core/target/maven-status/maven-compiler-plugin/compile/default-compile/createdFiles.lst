@@ -1,10 +1,7 @@
-me\melkx\jwtmodule\core\api\service\JwtServiceImpl.class
-me\melkx\jwtmodule\core\api\exception\JwtInternalException.class
-me\melkx\jwtmodule\core\api\dto\UserType.class
-me\melkx\jwtmodule\core\api\exception\JwtInvalidTokenException.class
-me\melkx\jwtmodule\core\api\service\JwtSecretKeyProvider.class
-me\melkx\jwtmodule\core\api\service\JwtService.class
-me\melkx\jwtmodule\core\api\dto\TokenType.class
-me\melkx\jwtmodule\core\api\service\TokenPayload.class
-me\melkx\jwtmodule\core\api\service\JwtServiceImpl$1.class
-me\melkx\jwtmodule\core\internal\constant\JwtValidityTimes.class
+me\melkx\jwtmodule\core\exception\JwtInternalException.class
+me\melkx\jwtmodule\core\service\JwtSecretKeyProvider.class
+me\melkx\jwtmodule\core\service\JwtServiceImpl.class
+me\melkx\jwtmodule\core\service\JwtService.class
+me\melkx\jwtmodule\core\service\TokenPayload.class
+me\melkx\jwtmodule\core\exception\JwtInvalidTokenException.class
+me\melkx\jwtmodule\core\service\JwtServiceImpl$1.class

@@ -1,9 +1,6 @@
-C:\Users\defix\Documents\Projects\Java\ECS\jwt-module-parent\jwt-module-core\src\main\java\me\melkx\jwtmodule\core\api\dto\TokenType.java
-C:\Users\defix\Documents\Projects\Java\ECS\jwt-module-parent\jwt-module-core\src\main\java\me\melkx\jwtmodule\core\api\dto\UserType.java
-C:\Users\defix\Documents\Projects\Java\ECS\jwt-module-parent\jwt-module-core\src\main\java\me\melkx\jwtmodule\core\api\exception\JwtInternalException.java
-C:\Users\defix\Documents\Projects\Java\ECS\jwt-module-parent\jwt-module-core\src\main\java\me\melkx\jwtmodule\core\api\exception\JwtInvalidTokenException.java
-C:\Users\defix\Documents\Projects\Java\ECS\jwt-module-parent\jwt-module-core\src\main\java\me\melkx\jwtmodule\core\api\service\JwtSecretKeyProvider.java
-C:\Users\defix\Documents\Projects\Java\ECS\jwt-module-parent\jwt-module-core\src\main\java\me\melkx\jwtmodule\core\api\service\JwtService.java
-C:\Users\defix\Documents\Projects\Java\ECS\jwt-module-parent\jwt-module-core\src\main\java\me\melkx\jwtmodule\core\api\service\JwtServiceImpl.java
-C:\Users\defix\Documents\Projects\Java\ECS\jwt-module-parent\jwt-module-core\src\main\java\me\melkx\jwtmodule\core\api\service\TokenPayload.java
-C:\Users\defix\Documents\Projects\Java\ECS\jwt-module-parent\jwt-module-core\src\main\java\me\melkx\jwtmodule\core\internal\constant\JwtValidityTimes.java
+C:\Users\defix\Documents\Projects\Java\ECS\jwt-module-parent\jwt-module-core\src\main\java\me\melkx\jwtmodule\core\exception\JwtInternalException.java
+C:\Users\defix\Documents\Projects\Java\ECS\jwt-module-parent\jwt-module-core\src\main\java\me\melkx\jwtmodule\core\exception\JwtInvalidTokenException.java
+C:\Users\defix\Documents\Projects\Java\ECS\jwt-module-parent\jwt-module-core\src\main\java\me\melkx\jwtmodule\core\service\JwtSecretKeyProvider.java
+C:\Users\defix\Documents\Projects\Java\ECS\jwt-module-parent\jwt-module-core\src\main\java\me\melkx\jwtmodule\core\service\JwtService.java
+C:\Users\defix\Documents\Projects\Java\ECS\jwt-module-parent\jwt-module-core\src\main\java\me\melkx\jwtmodule\core\service\JwtServiceImpl.java
+C:\Users\defix\Documents\Projects\Java\ECS\jwt-module-parent\jwt-module-core\src\main\java\me\melkx\jwtmodule\core\service\TokenPayload.java

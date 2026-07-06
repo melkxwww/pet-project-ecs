@@ -1,20 +1,22 @@
 package me.melkx.authmodule.service;
 
+import me.melkx.authmodule.dto.jwt.EmployeeAccessTokenPayload;
 import me.melkx.authmodule.dto.jwt.FounderAccessTokenPayload;
+import me.melkx.authmodule.dto.principal.EmployeePrincipal;
 import me.melkx.authmodule.dto.principal.FounderPrincipal;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 
-public class FounderJwtAuthenticator extends AbstractJwtAuthenticator {
-    public FounderJwtAuthenticator(JwtServiceFacade jwtService) {
+public class EmployeeJwtAuthenticator extends AbstractJwtAuthenticator {
+    public EmployeeJwtAuthenticator(JwtServiceFacade jwtService) {
         super(jwtService);
     }
 
     @Override
     protected Authentication authenticateInternal(String token) {
-        FounderAccessTokenPayload payload = jwtService.parseToken(token, FounderAccessTokenPayload.class);
+        EmployeeAccessTokenPayload payload = jwtService.parseToken(token, EmployeeAccessTokenPayload.class);
         Authentication auth = new UsernamePasswordAuthenticationToken(
-                new FounderPrincipal(payload.sub()),
+                new EmployeePrincipal(payload.sub()),
                 null,
                 null
         );
