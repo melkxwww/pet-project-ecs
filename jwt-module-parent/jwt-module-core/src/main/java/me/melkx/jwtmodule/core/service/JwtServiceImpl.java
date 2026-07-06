@@ -4,12 +4,12 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.DeserializationException;
 import io.jsonwebtoken.security.SignatureException;
 import me.melkx.jwtmodule.core.exception.JwtInternalException;
 import me.melkx.jwtmodule.core.exception.JwtInvalidTokenException;
-
 
 import javax.crypto.SecretKey;
 import java.time.Duration;
@@ -25,12 +25,15 @@ public class JwtServiceImpl implements JwtService {
         this.secretKey = secretKeyProvider.getSecretKey();
         this.objectMapper = new ObjectMapper()
                 .setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE)
-                .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+                .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+                .configure(DeserializationFeature.READ_DATE_TIMESTAMPS_AS_NANOSECONDS, false)
+                .configure(SerializationFeature.WRITE_DATE_TIMESTAMPS_AS_NANOSECONDS, false);
     }
 
     @Override
     public String generateToken(TokenPayload payload, Duration validity) {
-        Map<String, Object> claims = objectMapper.convertValue(payload, new TypeReference<>() {});
+        Map<String, Object> claims = objectMapper.convertValue(payload, new TypeReference<>() {
+        });
 
         Date now = new Date();
         Date expiryDate = Date.from(Instant.now().plus(validity));

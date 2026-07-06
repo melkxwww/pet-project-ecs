@@ -17,5 +17,5 @@ import me.melkx.jwtmodule.core.service.TokenPayload;
         @JsonSubTypes.Type(value = EmployeeRefreshTokenPayload.class, name = "employee_refresh")
 })
 public interface TypedTokenPayload extends TokenPayload {
-    JwtTokenType getUserType();
+    JwtTokenType getTokenType();
 }

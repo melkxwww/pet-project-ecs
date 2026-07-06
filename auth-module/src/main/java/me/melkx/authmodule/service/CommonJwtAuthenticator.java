@@ -19,7 +19,7 @@ public class CommonJwtAuthenticator extends AbstractJwtAuthenticator {
     protected Authentication authenticateInternal(String token) {
         UnsafeTypedTokenPayload payload = jwtService.parseToken(token, UnsafeTypedTokenPayload.class);
 
-        Object principal = switch (payload.getTokenType()) {
+        Object principal = switch (payload.tokenType()) {
             case FOUNDER_ACCESS ->
                     new FounderPrincipal(jwtService.parseToken(token, FounderAccessTokenPayload.class).sub());
 
@@ -27,12 +27,15 @@ public class CommonJwtAuthenticator extends AbstractJwtAuthenticator {
                     new EmployeePrincipal(jwtService.parseToken(token, EmployeeAccessTokenPayload.class).sub());
 
             default ->
-                    throw new IllegalArgumentException("Invalid token type: " + payload.getTokenType());
+                    throw new IllegalArgumentException("Invalid token type: " + payload.tokenType());
         };
 
-        PrincipalType principalType = PrincipalType.fromJwtTokenType(payload.getTokenType());
-        CommonPrincipal commonPrincipal = new CommonPrincipal(principalType, principal);
-
-        return new UsernamePasswordAuthenticationToken(commonPrincipal, null, null);
+        Authentication auth = new UsernamePasswordAuthenticationToken(
+                new CommonPrincipal(
+                        PrincipalType.fromJwtTokenType(payload.tokenType()), principal
+                ), null, null
+        );
+        auth.setAuthenticated(true);
+        return auth;
     }
 }

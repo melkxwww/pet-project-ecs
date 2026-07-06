@@ -6,7 +6,7 @@ import java.util.UUID;
 
 public record EmployeeAccessTokenPayload(UUID sub) implements TypedTokenPayload {
     @Override
-    public JwtTokenType getUserType() {
+    public JwtTokenType getTokenType() {
         return JwtTokenType.EMPLOYEE_ACCESS;
     }
 }
