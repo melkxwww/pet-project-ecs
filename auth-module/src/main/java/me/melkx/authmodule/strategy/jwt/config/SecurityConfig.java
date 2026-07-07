@@ -1,8 +1,11 @@
-package me.melkx.authmodule.config;
+package me.melkx.authmodule.strategy.jwt.config;
 
-import me.melkx.authmodule.filter.JwtAuthenticationFilter;
+import me.melkx.authmodule.dto.IgnoredUris;
+import me.melkx.authmodule.strategy.jwt.filter.JwtAuthenticationFilter;
+import me.melkx.authmodule.strategy.jwt.service.JwtPrincipalFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -10,22 +13,27 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AnonymousAuthenticationFilter;
 
+@AutoConfiguration
 @EnableWebSecurity
 @EnableMethodSecurity
-@Configuration
 public class SecurityConfig {
-    private final JwtAuthenticationFilter jwtAuthenticationFilter;
-
-    @Autowired
-    public SecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter) {
-        this.jwtAuthenticationFilter = jwtAuthenticationFilter;
+    @Bean
+    @ConditionalOnMissingBean(JwtAuthenticationFilter.class)
+    public JwtAuthenticationFilter jwtAuthenticationFilter(
+            JwtPrincipalFactory factory,
+            AuthenticationEntryPoint entryPoint,
+            IgnoredUris ignoredUris
+    ) {
+        return new JwtAuthenticationFilter(factory, entryPoint, ignoredUris);
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    @ConditionalOnMissingBean(SecurityFilterChain.class)
+    public SecurityFilterChain filterChain(HttpSecurity http, JwtAuthenticationFilter jwtFilter) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable)
@@ -37,7 +45,7 @@ public class SecurityConfig {
                 .securityContext(s -> s.requireExplicitSave(false))
                 .authorizeHttpRequests(a ->
                         a.anyRequest().authenticated())
-                .addFilterBefore(jwtAuthenticationFilter, AnonymousAuthenticationFilter.class);
+                .addFilterBefore(jwtFilter, AnonymousAuthenticationFilter.class);
 
         return http.build();
     }

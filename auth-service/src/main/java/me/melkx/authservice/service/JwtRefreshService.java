@@ -1,110 +1,115 @@
 package me.melkx.authservice.service;
 
-import me.melkx.authmodule.dto.jwt.EmployeeRefreshTokenPayload;
-import me.melkx.authmodule.dto.jwt.FounderRefreshTokenPayload;
-import me.melkx.authmodule.service.JwtServiceFacade;
-
+import me.melkx.authmodule.dto.PrincipalType;
+import me.melkx.authservice.dto.CommonRefreshTokenPayload;
+import me.melkx.jwtmodule.core.service.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.data.redis.core.RedisKeyExpiredEvent;
+import org.springframework.data.redis.core.ScanOptions;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class JwtRefreshService {
-    private static final String TOKEN_PREFIX = "tokens:";
+    private static final String TOKEN_SHADOW_PREFIX = "tokens:shadow:";
+    private static final String TOKEN_SHADOW_SEPARATOR = "|";
 
-    private final JwtServiceFacade jwtService;
+    private final JwtService jwtService;
     private final StringRedisTemplate redisTemplate;
+    private final Map<PrincipalType, RedisKeyResolver> keyResolvers;
 
     @Autowired
-    public JwtRefreshService(JwtServiceFacade jwtService, StringRedisTemplate redisTemplate) {
+    public JwtRefreshService(JwtService jwtService, StringRedisTemplate redisTemplate, List<RedisKeyResolver> keyResolvers) {
         this.jwtService = jwtService;
         this.redisTemplate = redisTemplate;
-
+        this.keyResolvers = keyResolvers.stream()
+                .collect(Collectors.toMap(RedisKeyResolver::getType, resolver -> resolver));
     }
 
-    public void registerFounderRefreshToken(String token) {
-        FounderRefreshTokenPayload payload = jwtService.parseToken(token, FounderRefreshTokenPayload.class);
-        registerRefreshToken(
-                prepareFounderTokenKeyName(payload.sub().toString()),
-                payload.jti().toString(),
-                payload.exp()
-        );
+    public void registerRefreshToken(String token) {
+        Objects.requireNonNull(token, "Token cannot be null");
+        RefreshInfo info = extractRefreshInfoFromToken(token);
+
+        if (info.expiration().isBefore(Instant.now())) {
+            throw new IllegalArgumentException("Token already expired");
+        }
+
+        Duration ttl = Duration.between(Instant.now(), info.expiration());
+        String shadowKey = prepareShadowKeyName(info.refreshId(), info.localStorageKey());
+
+        redisTemplate.opsForValue().set(shadowKey, "", ttl);
+        redisTemplate.opsForSet().add(info.localStorageKey(), info.refreshId());
     }
 
-    public void recallFounderRefreshToken(String token) {
-        FounderRefreshTokenPayload payload = jwtService.parseToken(token, FounderRefreshTokenPayload.class);
-        recallRefreshToken(
-                prepareFounderTokenKeyName(payload.sub().toString()),
-                payload.jti().toString()
-        );
+    public void revokeRefreshToken(String token) {
+        Objects.requireNonNull(token, "Token cannot be null");
+        RefreshInfo info = extractRefreshInfoFromToken(token);
+
+        redisTemplate.opsForSet().remove(info.localStorageKey(), info.refreshId());
+
+        String shadowKey = prepareShadowKeyName(info.refreshId(), info.localStorageKey());
+        redisTemplate.delete(shadowKey);
     }
 
-    public void registerEmployeeRefreshToken(String token) {
-        EmployeeRefreshTokenPayload payload = jwtService.parseToken(token, EmployeeRefreshTokenPayload.class);
-        registerRefreshToken(
-                prepareFounderTokenKeyName(payload.sub().toString()),
-                payload.jti().toString(),
-                payload.exp()
-        );
+    public void revokeAllRefreshTokensFromPrincipal(PrincipalType userType, String id) {
+        String localStorageKey = keyResolvers.get(userType).resolveTokenKeyName(id);
+
+        Set<String> refreshIds = redisTemplate.opsForSet().members(localStorageKey);
+
+        if (refreshIds == null || refreshIds.isEmpty()) {
+            return;
+        }
+
+        List<String> keysToDelete = refreshIds.stream()
+                .map(refreshId -> prepareShadowKeyName(refreshId, localStorageKey))
+                .collect(Collectors.toList());
+
+        redisTemplate.delete(keysToDelete);
+        redisTemplate.delete(localStorageKey);
     }
 
-    public void recallEmployeeRefreshToken(String token) {
-        EmployeeRefreshTokenPayload payload = jwtService.parseToken(token, EmployeeRefreshTokenPayload.class);
-        recallRefreshToken(
-                prepareFounderTokenKeyName(payload.sub().toString()),
-                payload.jti().toString()
-        );
-    }
+    private RefreshInfo extractRefreshInfoFromToken(String token) {
+        CommonRefreshTokenPayload payload = jwtService.parseToken(token, CommonRefreshTokenPayload.class);
 
-    private void registerRefreshToken(String localStorageKey, String jti, Instant exp) {
-        Duration ttl = Duration.between(Instant.now(), exp);
-        redisTemplate.opsForValue().set(
-                prepareTokenKeyName(jti),
-                localStorageKey,
-                ttl
-        );
-        redisTemplate.opsForSet().add(localStorageKey, jti);
-    }
+        String refreshId = payload.getJti().toString();
+        String localStorageKey = keyResolvers.get(payload.getPrincipalType())
+                .resolveTokenKeyName(payload.getSub().toString());
 
-    public void recallRefreshToken(String localStorageKey, String jti) {
-        redisTemplate.delete(prepareTokenKeyName(jti));
-        redisTemplate.opsForSet().remove(
-                localStorageKey,
-                jti
-        );
+        return new RefreshInfo(refreshId, localStorageKey, payload.getExp());
     }
 
     @EventListener
     public void onRefreshTokenExpired(RedisKeyExpiredEvent<Object> event) {
         String expiredKey = new String(event.getSource());
 
-        if (!expiredKey.startsWith(TOKEN_PREFIX))
-            return;
-
-        Object expiredValue = event.getValue();
-        if (expiredValue != null) {
-            String refreshId = expiredKey.substring(TOKEN_PREFIX.length());
-            redisTemplate.opsForSet().remove((String) expiredValue, refreshId);
+        if (!expiredKey.startsWith(TOKEN_SHADOW_PREFIX)) {
             return;
         }
 
-        throw new IllegalStateException("Failed to deserialize refresh token");
+        String data = expiredKey.substring(TOKEN_SHADOW_PREFIX.length());
+        int delimiterIndex = data.indexOf(TOKEN_SHADOW_SEPARATOR);
+
+        if (delimiterIndex != -1) {
+            String refreshId = data.substring(0, delimiterIndex);
+            String localStorageKey = data.substring(delimiterIndex + 1);
+
+            redisTemplate.opsForSet().remove(localStorageKey, refreshId);
+        }
     }
 
-    private static String prepareTokenKeyName(String refreshId) {
-        return TOKEN_PREFIX.concat(refreshId);
+    private static String prepareShadowKeyName(String refreshId, String localStorageKey) {
+        return TOKEN_SHADOW_PREFIX
+                .concat(refreshId)
+                .concat(TOKEN_SHADOW_SEPARATOR)
+                .concat(localStorageKey);
     }
 
-    private static String prepareFounderTokenKeyName(String founderId) {
-        return "founders:".concat(founderId).concat(":tokens");
-    }
-
-    private static String prepareEmployeeTokenKeyName(String employeeId) {
-        return "employees:".concat(employeeId).concat(":tokens");
+    record RefreshInfo(String refreshId, String localStorageKey, Instant expiration) {
     }
 }

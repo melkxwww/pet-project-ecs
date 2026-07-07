@@ -1,15 +1,27 @@
 package me.melkx.authmodule.dto;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+
+import java.util.Objects;
+
 public enum PrincipalType {
     FOUNDER,
-    EMPLOYEE;
+    EMPLOYEE,
+    COMMON;
 
-    public static PrincipalType fromJwtTokenType(JwtTokenType jwtTokenType) {
-        if(jwtTokenType == JwtTokenType.FOUNDER_ACCESS)
-            return PrincipalType.FOUNDER;
-        else if(jwtTokenType == JwtTokenType.EMPLOYEE_ACCESS)
-            return PrincipalType.EMPLOYEE;
+    @JsonValue
+    public String getValue() {
+        return name().toLowerCase();
+    }
 
-        throw new IllegalArgumentException("Invalid token type");
+    @JsonCreator
+    public static PrincipalType fromValue(String value) {
+        return switch (value) {
+            case "founder" -> FOUNDER;
+            case "employee" -> EMPLOYEE;
+            case "common" -> COMMON;
+            default -> throw new IllegalArgumentException("Invalid principal type value");
+        };
     }
 }

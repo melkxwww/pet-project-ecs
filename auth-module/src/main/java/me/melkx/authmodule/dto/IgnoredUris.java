@@ -1,15 +1,14 @@
 package me.melkx.authmodule.dto;
 
 import lombok.Getter;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 @Getter
+@ConfigurationProperties(prefix = "app.auth.web")
 public class IgnoredUris {
-    private final List<String> uris;
-
-    public IgnoredUris(String... uris) {
-        this.uris = Arrays.asList(uris);
-    }
+    private List<String> ignoredUris = new ArrayList<>();
 }

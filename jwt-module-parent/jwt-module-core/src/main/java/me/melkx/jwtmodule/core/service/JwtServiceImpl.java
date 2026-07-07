@@ -16,13 +16,16 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.Date;
 import java.util.Map;
+import java.util.Objects;
 
 public class JwtServiceImpl implements JwtService {
     private final SecretKey secretKey;
     private final ObjectMapper objectMapper;
+    private final JwtConfiguration configuration;
 
-    public JwtServiceImpl(JwtSecretKeyProvider secretKeyProvider) {
+    public JwtServiceImpl(JwtSecretKeyProvider secretKeyProvider, JwtConfigurationProvider configurationProvider) {
         this.secretKey = secretKeyProvider.getSecretKey();
+        this.configuration = configurationProvider.getJwtConfiguration();
         this.objectMapper = new ObjectMapper()
                 .setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE)
                 .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
@@ -31,17 +34,28 @@ public class JwtServiceImpl implements JwtService {
     }
 
     @Override
-    public String generateToken(TokenPayload payload, Duration validity) {
-        Map<String, Object> claims = objectMapper.convertValue(payload, new TypeReference<>() {
-        });
+    public String generateAccessToken(TokenPayload payload) {
+        return generateToken(payload, configuration.accessTokenValidity());
+    }
 
-        Date now = new Date();
-        Date expiryDate = Date.from(Instant.now().plus(validity));
+    @Override
+    public String generateRefreshToken(TokenPayload payload) {
+        return generateToken(payload, configuration.refreshTokenValidity());
+    }
+
+    private String generateToken(TokenPayload payload, Duration validity) {
+        Objects.requireNonNull(payload, "Payload cannot be null");
+
+        Map<String, Object> claims = objectMapper.convertValue(payload, Map.class);
+
+        Instant now = Instant.now();
+        Date issuedAt = Date.from(now);
+        Date expiryDate = Date.from(now.plus(validity));
 
         try {
             return Jwts.builder()
                     .claims(claims)
-                    .issuedAt(now)
+                    .issuedAt(issuedAt)
                     .expiration(expiryDate)
                     .signWith(secretKey)
                     .compact();
@@ -52,6 +66,8 @@ public class JwtServiceImpl implements JwtService {
 
     @Override
     public <T extends TokenPayload> T parseToken(String token, Class<T> targetClass) {
+        Objects.requireNonNull(token, "Token cannot be null");
+
         try {
             Claims claims = Jwts.parser()
                     .verifyWith(secretKey)

@@ -25,6 +25,8 @@ public class FounderService {
     }
 
     public UUID createFounder(SignUpCredentialsRequest credentials) {
+        Objects.requireNonNull(credentials, "Credentials must not be null");
+
         CommonResult<FounderCreationResponse> result = companyManagementClient.createFounder(new FounderCreationRequest(
                 credentials.email(),
                 passwordEncoder.encode(credentials.password())
