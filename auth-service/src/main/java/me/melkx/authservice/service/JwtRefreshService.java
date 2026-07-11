@@ -57,8 +57,11 @@ public class JwtRefreshService {
         redisTemplate.delete(shadowKey);
     }
 
-    public void revokeAllRefreshTokensFromPrincipal(PrincipalType userType, String id) {
-        String localStorageKey = keyResolvers.get(userType).resolveTokenKeyName(id);
+    public void revokeAllRefreshTokensFromPrincipal(PrincipalType principalType, String userId) {
+        Objects.requireNonNull(principalType, "Principal type cannot be null");
+        Objects.requireNonNull(userId, "User ID cannot be null");
+
+        String localStorageKey = keyResolvers.get(principalType).resolveTokenKeyName(userId);
 
         Set<String> refreshIds = redisTemplate.opsForSet().members(localStorageKey);
 
@@ -75,7 +78,7 @@ public class JwtRefreshService {
     }
 
     private RefreshInfo extractRefreshInfoFromToken(String token) {
-        CommonRefreshTokenPayload payload = jwtService.parseToken(token, CommonRefreshTokenPayload.class);
+        CommonRefreshTokenPayload payload = jwtService.readTokenClaims(token, CommonRefreshTokenPayload.class);
 
         String refreshId = payload.getJti().toString();
         String localStorageKey = keyResolvers.get(payload.getPrincipalType())

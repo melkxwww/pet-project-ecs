@@ -7,8 +7,7 @@ import java.util.Objects;
 
 public enum PrincipalType {
     FOUNDER,
-    EMPLOYEE,
-    COMMON;
+    EMPLOYEE;
 
     @JsonValue
     public String getValue() {
@@ -20,7 +19,6 @@ public enum PrincipalType {
         return switch (value) {
             case "founder" -> FOUNDER;
             case "employee" -> EMPLOYEE;
-            case "common" -> COMMON;
             default -> throw new IllegalArgumentException("Invalid principal type value");
         };
     }

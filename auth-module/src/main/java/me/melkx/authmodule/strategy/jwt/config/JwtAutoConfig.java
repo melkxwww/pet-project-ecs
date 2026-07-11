@@ -1,8 +1,5 @@
 package me.melkx.authmodule.strategy.jwt.config;
 
-import me.melkx.authmodule.strategy.jwt.service.CommonPrincipalFactory;
-import me.melkx.authmodule.strategy.jwt.service.EmployeePrincipalFactory;
-import me.melkx.authmodule.strategy.jwt.service.FounderPrincipalFactory;
 import me.melkx.authmodule.strategy.jwt.service.JwtPrincipalFactory;
 import me.melkx.jwtmodule.core.service.JwtService;
 import org.springframework.boot.autoconfigure.AutoConfiguration;

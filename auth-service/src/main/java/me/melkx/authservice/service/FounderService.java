@@ -38,4 +38,8 @@ public class FounderService {
         return Objects.requireNonNull(result.getData(), "Result data cannot be null")
                 .id();
     }
+
+    public UUID getFounderIdByEmail(String email) {
+        return
+    }
 }

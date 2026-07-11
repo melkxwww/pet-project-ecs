@@ -1,4 +1,4 @@
-package me.melkx.jwtmodule.core.service;
+package me.melkx.jwtmodule.core.dto;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;

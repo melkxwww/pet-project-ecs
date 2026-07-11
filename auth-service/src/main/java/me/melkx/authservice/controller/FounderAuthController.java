@@ -1,15 +1,15 @@
 package me.melkx.authservice.controller;
 
 import jakarta.validation.Valid;
-import me.melkx.authenticationmodule.dto.CommonPrincipal;
+import me.melkx.authmodule.dto.principal.CommonPrincipal;
+import me.melkx.authmodule.strategy.jwt.dto.FounderAccessTokenPayload;
+import me.melkx.authmodule.strategy.jwt.dto.FounderRefreshTokenPayload;
 import me.melkx.authservice.dto.JwtTokenPairResponse;
 import me.melkx.authservice.dto.SignInCredentialsRequest;
 import me.melkx.authservice.dto.SignUpCredentialsRequest;
 import me.melkx.authservice.service.FounderService;
-import me.melkx.jwtmodule.core.api.dto.FounderAccessTokenClaims;
-import me.melkx.jwtmodule.core.api.dto.FounderRefreshTokenClaims;
-import me.melkx.jwtmodule.core.api.dto.JwtTokenType;
-import me.melkx.jwtmodule.core.api.service.JwtGenerator;
+import me.melkx.authservice.service.JwtRefreshService;
+import me.melkx.jwtmodule.core.service.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -21,26 +21,33 @@ import java.util.UUID;
 @RequestMapping("/v1/api/auth/founder")
 public class FounderAuthController {
     private final FounderService founderService;
-    private final JwtGenerator jwtGenerator;
+    private final JwtService jwtService;
+    private final JwtRefreshService refreshService;
 
     @Autowired
-    public FounderAuthController(FounderService founderService, JwtGenerator jwtGenerator) {
+    public FounderAuthController(FounderService founderService, JwtService jwtService, JwtRefreshService refreshService) {
         this.founderService = founderService;
-        this.jwtGenerator = jwtGenerator;
+        this.jwtService = jwtService;
+        this.refreshService = refreshService;
     }
 
     @PostMapping("/sign-up")
     public ResponseEntity<JwtTokenPairResponse> signUp(@Valid @RequestBody SignUpCredentialsRequest credentials) {
         UUID id = founderService.createFounder(credentials);
+        String refreshToken = jwtService.generateRefreshToken(new FounderRefreshTokenPayload(id));
+        refreshService.registerRefreshToken(refreshToken);
         return ResponseEntity.ok(new JwtTokenPairResponse(
-                jwtGenerator.generateFounderAccessToken(new FounderAccessTokenClaims(id)),
-                jwtGenerator.generateFounderRefreshToken(new FounderRefreshTokenClaims(id))
+                jwtService.generateAccessToken(new FounderAccessTokenPayload(id)),
+                refreshToken
         ));
     }
 
     @PostMapping("/sign-in")
     public ResponseEntity<JwtTokenPairResponse> signIn(@Valid @RequestBody SignInCredentialsRequest credentials) {
-        return null;
+        String refreshToken = credentials.
+        return new JwtTokenPairResponse(
+
+        );
     }
 
     @PostMapping("/sign-out")
