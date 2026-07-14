@@ -5,42 +5,34 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
-import me.melkx.authmodule.dto.principal.Principal;
 import me.melkx.authmodule.exception.InternalAuthenticationException;
 import me.melkx.authmodule.exception.UnauthorizedAuthenticationException;
 import me.melkx.authmodule.dto.IgnoredUris;
-import me.melkx.authmodule.service.PrincipalAuthoritiesProvider;
-import me.melkx.authmodule.strategy.jwt.service.JwtPrincipalFactory;
+import me.melkx.authmodule.service.AbstractAuthenticationFilter;
+import me.melkx.authmodule.strategy.jwt.service.JwtAuthenticationFactory;
 import me.melkx.jwtmodule.core.exception.JwtInternalException;
 import me.melkx.jwtmodule.core.exception.JwtInvalidTokenException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.AuthenticationEntryPoint;
-import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
-import java.util.Optional;
 
 @Slf4j
-public class JwtAuthenticationFilter extends OncePerRequestFilter {
-    private final JwtPrincipalFactory principalFactory;
-    private final AuthenticationEntryPoint authenticationEntryPoint;
+public class JwtAuthenticationFilter extends AbstractAuthenticationFilter {
+    private final JwtAuthenticationFactory authenticationFactory;
+    private final AuthenticationEntryPoint entryPoint;
     private final IgnoredUris ignoredUris;
-
-    private final Optional<PrincipalAuthoritiesProvider> authoritiesProvider;
-
-    public JwtAuthenticationFilter(JwtPrincipalFactory principalFactory, AuthenticationEntryPoint authenticationEntryPoint, IgnoredUris ignoredUris, Optional<PrincipalAuthoritiesProvider> authoritiesProvider) {
-        this.principalFactory = principalFactory;
-        this.authoritiesProvider = authoritiesProvider;
-        this.authenticationEntryPoint = authenticationEntryPoint;
-        this.ignoredUris = ignoredUris;
-    }
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
         return ignoredUris.getIgnoredUris().stream()
                 .anyMatch(uri -> request.getRequestURI().startsWith(uri));
+    }
+
+    public JwtAuthenticationFilter(JwtAuthenticationFactory authenticationFactory, AuthenticationEntryPoint entryPoint, IgnoredUris ignoredUris) {
+        this.authenticationFactory = authenticationFactory;
+        this.entryPoint = entryPoint;
+        this.ignoredUris = ignoredUris;
     }
 
     @Override
@@ -61,28 +53,20 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 throw new UnauthorizedAuthenticationException("Authorization token is empty");
             }
 
-            Principal principal = principalFactory.createPrincipal(token);
-            Authentication auth = new UsernamePasswordAuthenticationToken(
-                    principal,
-                    null,
-                    authoritiesProvider.orElse(null).provide()
+            SecurityContextHolder.getContext().setAuthentication(
+                    authenticationFactory.createAuthentication(token)
             );
-            auth.setAuthenticated(true);
-            SecurityContextHolder.getContext().setAuthentication(auth);
 
             filterChain.doFilter(request, response);
-        } catch (JwtInternalException e) {
-            SecurityContextHolder.clearContext();
-            authenticationEntryPoint.commence(request, response, new InternalAuthenticationException("Authentication service error"));
         } catch (JwtInvalidTokenException e) {
             SecurityContextHolder.clearContext();
-            authenticationEntryPoint.commence(request, response, new UnauthorizedAuthenticationException("Invalid authentication token"));
+            entryPoint.commence(request, response, new UnauthorizedAuthenticationException(e.getMessage()));
         } catch (UnauthorizedAuthenticationException e) {
             SecurityContextHolder.clearContext();
-            authenticationEntryPoint.commence(request, response, e);
+            entryPoint.commence(request, response, e);
         } catch (Exception e) {
             SecurityContextHolder.clearContext();
-            authenticationEntryPoint.commence(request, response, new InternalAuthenticationException("Authentication failed"));
+            entryPoint.commence(request, response, new InternalAuthenticationException(e.getMessage()));
         }
     }
 }

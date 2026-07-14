@@ -2,29 +2,27 @@ package me.melkx.authmodule.strategy.jwt.config;
 
 import me.melkx.authmodule.dto.IgnoredUris;
 import me.melkx.authmodule.strategy.jwt.filter.JwtAuthenticationFilter;
-import me.melkx.authmodule.strategy.jwt.service.JwtPrincipalFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import me.melkx.authmodule.strategy.jwt.service.JwtAuthenticationFactory;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AnonymousAuthenticationFilter;
 
 @AutoConfiguration
-@EnableWebSecurity
-@EnableMethodSecurity
 public class SecurityConfig {
     @Bean
     @ConditionalOnMissingBean(JwtAuthenticationFilter.class)
     public JwtAuthenticationFilter jwtAuthenticationFilter(
-            JwtPrincipalFactory factory,
+            JwtAuthenticationFactory factory,
             AuthenticationEntryPoint entryPoint,
             IgnoredUris ignoredUris
     ) {

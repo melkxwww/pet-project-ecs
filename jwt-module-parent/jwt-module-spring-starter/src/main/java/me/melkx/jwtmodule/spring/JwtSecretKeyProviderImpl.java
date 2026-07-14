@@ -3,7 +3,6 @@ package me.melkx.jwtmodule.spring;
 import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.security.WeakKeyException;
 import me.melkx.jwtmodule.core.exception.JwtInternalException;
-import me.melkx.jwtmodule.core.service.JwtSecretKeyProvider;
 
 import javax.crypto.SecretKey;
 import java.util.Base64;
@@ -24,7 +23,7 @@ public class JwtSecretKeyProviderImpl implements JwtSecretKeyProvider {
     }
 
     @Override
-    public final SecretKey getSecretKey() {
+    public SecretKey getSecretKey() {
         return secretKey;
     }
 }
