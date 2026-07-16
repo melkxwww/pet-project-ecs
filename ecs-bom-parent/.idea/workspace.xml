@@ -5,92 +5,31 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5e86e076-8f64-40c1-8382-d04cb74e15eb" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../auth-module/src/main/java/me/melkx/authmodule/config/AppConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../auth-module/src/main/java/me/melkx/authmodule/config/CommonSecurityConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../auth-module/src/main/java/me/melkx/authmodule/service/AbstractAuthenticationFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../auth-module/src/main/java/me/melkx/authmodule/strategy/jwt/dto/employee/EmployeeAccessTokenPayload.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../auth-module/src/main/java/me/melkx/authmodule/strategy/jwt/dto/employee/EmployeeRefreshTokenPayload.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../auth-module/src/main/java/me/melkx/authmodule/strategy/jwt/dto/founder/FounderAccessTokenPayload.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../auth-module/src/main/java/me/melkx/authmodule/strategy/jwt/dto/founder/FounderRefreshTokenPayload.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../auth-module/src/main/java/me/melkx/authmodule/strategy/jwt/service/AbstractJwtAuthenticationFactory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../auth-module/src/main/java/me/melkx/authmodule/strategy/jwt/service/JwtAuthenticationFactory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../auth-service/src/main/java/me/melkx/authservice/founder/controller/FounderAuthController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../auth-service/src/main/java/me/melkx/authservice/founder/dto/FounderCredentialsRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../auth-service/src/main/java/me/melkx/authservice/founder/entity/Founder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../auth-service/src/main/java/me/melkx/authservice/founder/mapper/FounderMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../auth-service/src/main/java/me/melkx/authservice/founder/repository/FounderRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../auth-service/src/main/java/me/melkx/authservice/founder/security/config/SecurityConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../auth-service/src/main/java/me/melkx/authservice/founder/security/dto/FounderPrincipal.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../auth-service/src/main/java/me/melkx/authservice/founder/security/factory/FounderJwtAuthenticationFactory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../auth-service/src/main/java/me/melkx/authservice/founder/service/FounderService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../auth-service/src/main/resources/db/changelog/changesets/01-init-database.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../auth-service/src/main/resources/db/changelog/db.changelog-master.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../auth-service/src/main/resources/static/init.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../auth-module/src/main/java/me/melkx/authmodule/config/AuthConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../auth-module/src/main/java/me/melkx/authmodule/dto/PrincipalType.java" beforeDir="false" afterPath="$PROJECT_DIR$/../auth-module/src/main/java/me/melkx/authmodule/strategy/jwt/dto/JsonPrincipalType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../auth-module/src/main/java/me/melkx/authmodule/dto/principal/EmployeePrincipal.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../auth-module/src/main/java/me/melkx/authmodule/dto/principal/FounderPrincipal.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../auth-module/src/main/java/me/melkx/authmodule/dto/principal/Principal.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../auth-module/src/main/java/me/melkx/authmodule/filter/AuthenticationEntryPointImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../auth-module/src/main/java/me/melkx/authmodule/service/AuthenticationEntryPointImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../auth-module/src/main/java/me/melkx/authmodule/service/PrincipalAuthoritiesProvider.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../auth-module/src/main/java/me/melkx/authmodule/strategy/jwt/config/JwtAutoConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../auth-module/src/main/java/me/melkx/authmodule/strategy/jwt/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../auth-module/src/main/java/me/melkx/authmodule/strategy/jwt/config/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../auth-module/src/main/java/me/melkx/authmodule/strategy/jwt/dto/EmployeeAccessTokenPayload.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../auth-module/src/main/java/me/melkx/authmodule/strategy/jwt/dto/EmployeeRefreshTokenPayload.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../auth-module/src/main/java/me/melkx/authmodule/strategy/jwt/dto/FounderAccessTokenPayload.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../auth-module/src/main/java/me/melkx/authmodule/strategy/jwt/dto/FounderRefreshTokenPayload.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../auth-module/src/main/java/me/melkx/authmodule/strategy/jwt/dto/TypedTokenPayload.java" beforeDir="false" afterPath="$PROJECT_DIR$/../auth-module/src/main/java/me/melkx/authmodule/strategy/jwt/dto/TypedTokenPayload.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../auth-module/src/main/java/me/melkx/authmodule/strategy/jwt/dto/TypedTokenPayloadImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../auth-module/src/main/java/me/melkx/authmodule/strategy/jwt/dto/exp/EmployeeAccessTokenPayload.java" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/../auth-module/src/main/java/me/melkx/authmodule/exp/JwtAuthenticationProvider.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../auth-module/src/main/java/me/melkx/authmodule/strategy/jwt/exp/AuthenticationObject.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../auth-module/src/main/java/me/melkx/authmodule/strategy/jwt/exp/AuthenticationObjectFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../auth-service/src/main/java/me/melkx/authservice/config/CommonConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../auth-service/src/main/java/me/melkx/authservice/config/JwtValidityTimeProperties.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../auth-service/src/main/java/me/melkx/authservice/facade/JwtAuthFacade.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../auth-service/src/main/java/me/melkx/authservice/founder/dto/FounderDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../auth-service/src/main/java/me/melkx/authservice/founder/exception/FounderInvalidPasswordException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../auth-service/src/main/java/me/melkx/authservice/founder/exception/FounderNotFoundException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../auth-service/src/main/java/me/melkx/authservice/founder/service/FounderAuthControllerFacade.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../auth-module/src/main/java/me/melkx/authmodule/config/AppConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../auth-module/src/main/java/me/melkx/authmodule/config/CommonConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../auth-module/src/main/java/me/melkx/authmodule/config/CommonSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../auth-module/src/main/java/me/melkx/authmodule/config/CommonSecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../auth-module/src/main/java/me/melkx/authmodule/dto/IgnoredUris.java" beforeDir="false" afterPath="$PROJECT_DIR$/../auth-module/src/main/java/me/melkx/authmodule/dto/AuthenticationIgnoredUris.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../auth-module/src/main/java/me/melkx/authmodule/strategy/jwt/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../auth-module/src/main/java/me/melkx/authmodule/strategy/jwt/config/JwtSecurityConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../auth-module/src/main/java/me/melkx/authmodule/strategy/jwt/filter/JwtAuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../auth-module/src/main/java/me/melkx/authmodule/strategy/jwt/filter/JwtAuthenticationFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../auth-module/src/main/java/me/melkx/authmodule/strategy/jwt/service/EmployeePrincipalFactory.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../auth-module/src/main/java/me/melkx/authmodule/strategy/jwt/service/FounderPrincipalFactory.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../auth-module/src/main/java/me/melkx/authmodule/strategy/jwt/service/JwtPrincipalFactory.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../auth-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../auth-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../auth-service/src/main/java/me/melkx/authservice/AuthServiceApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../auth-service/src/main/java/me/melkx/authservice/config/AuthConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../auth-service/src/main/java/me/melkx/authservice/constant/AuthRequestValidationPatterns.java" beforeDir="false" afterPath="$PROJECT_DIR$/../auth-module/src/main/java/me/melkx/authmodule/constant/AuthValidationPatterns.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../auth-service/src/main/java/me/melkx/authservice/controller/EmployeeAuthController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../auth-service/src/main/java/me/melkx/authservice/controller/FounderAuthController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../auth-service/src/main/java/me/melkx/authservice/dto/CommonRefreshTokenPayload.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../auth-service/src/main/java/me/melkx/authservice/dto/JwtTokenPairResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/../auth-service/src/main/java/me/melkx/authservice/dto/JwtTokenPairResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../auth-service/src/main/java/me/melkx/authservice/dto/SignInCredentialsRequest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../auth-service/src/main/java/me/melkx/authservice/dto/SignUpCredentialsRequest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../auth-service/src/main/java/me/melkx/authservice/feign/CompanyManagementFeignClient.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../auth-service/src/main/java/me/melkx/authservice/feign/dto/FounderCreationRequest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../auth-service/src/main/java/me/melkx/authservice/feign/dto/FounderCreationResponse.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../auth-service/src/main/java/me/melkx/authservice/service/EmployeeKeyResolver.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../auth-service/src/main/java/me/melkx/authservice/service/FounderKeyResolver.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../auth-service/src/main/java/me/melkx/authservice/service/FounderService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../auth-service/src/main/java/me/melkx/authservice/service/JwtRefreshService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../auth-service/src/main/java/me/melkx/authservice/service/RedisKeyResolver.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../auth-service/src/main/java/me/melkx/authservice/founder/controller/FounderAuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../auth-service/src/main/java/me/melkx/authservice/founder/controller/FounderAuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../auth-service/src/main/java/me/melkx/authservice/founder/repository/FounderRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../auth-service/src/main/java/me/melkx/authservice/founder/repository/FounderRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../auth-service/src/main/java/me/melkx/authservice/founder/security/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../auth-service/src/main/java/me/melkx/authservice/founder/security/config/JwtSecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../auth-service/src/main/java/me/melkx/authservice/founder/security/factory/FounderJwtAuthenticationFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/../auth-service/src/main/java/me/melkx/authservice/founder/security/factory/FounderJwtAuthenticationFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../auth-service/src/main/java/me/melkx/authservice/founder/service/FounderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../auth-service/src/main/java/me/melkx/authservice/founder/service/FounderService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../auth-service/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../auth-service/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-core/src/main/java/me/melkx/jwtmodule/core/dto/TokenPayload.java" beforeDir="false" afterPath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-core/src/main/java/me/melkx/jwtmodule/core/dto/TokenPayload.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-core/src/main/java/me/melkx/jwtmodule/core/dto/TokenType.java" beforeDir="false" afterPath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-core/src/main/java/me/melkx/jwtmodule/core/dto/JsonTokenType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-core/src/main/java/me/melkx/jwtmodule/core/exception/JwtInternalException.java" beforeDir="false" afterPath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-core/src/main/java/me/melkx/jwtmodule/core/exception/JwtInternalException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-core/src/main/java/me/melkx/jwtmodule/core/exception/JwtInvalidTokenException.java" beforeDir="false" afterPath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-core/src/main/java/me/melkx/jwtmodule/core/exception/JwtInvalidTokenException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-core/src/main/java/me/melkx/jwtmodule/core/service/JwtConfiguration.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-core/src/main/java/me/melkx/jwtmodule/core/service/JwtConfigurationProvider.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-core/src/main/java/me/melkx/jwtmodule/core/service/JwtParsingValidator.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-core/src/main/java/me/melkx/jwtmodule/core/service/JwtSecretKeyProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-spring-starter/src/main/java/me/melkx/jwtmodule/spring/JwtSecretKeyProvider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-core/src/main/java/me/melkx/jwtmodule/core/service/JwtService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-core/src/main/java/me/melkx/jwtmodule/core/service/JwtService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-core/src/main/java/me/melkx/jwtmodule/core/service/JwtServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-core/src/main/java/me/melkx/jwtmodule/core/service/JwtServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-core/target/classes/me/melkx/jwtmodule/core/dto/TokenPayload.class" beforeDir="false" afterPath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-core/target/classes/me/melkx/jwtmodule/core/dto/TokenPayload.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-core/target/classes/me/melkx/jwtmodule/core/dto/TokenType.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-core/target/classes/me/melkx/jwtmodule/core/exception/JwtInternalException.class" beforeDir="false" afterPath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-core/target/classes/me/melkx/jwtmodule/core/exception/JwtInternalException.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-core/target/classes/me/melkx/jwtmodule/core/exception/JwtInvalidTokenException.class" beforeDir="false" afterPath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-core/target/classes/me/melkx/jwtmodule/core/exception/JwtInvalidTokenException.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-core/target/classes/me/melkx/jwtmodule/core/service/JwtConfiguration.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-core/target/classes/me/melkx/jwtmodule/core/service/JwtConfigurationProvider.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-core/target/classes/me/melkx/jwtmodule/core/service/JwtSecretKeyProvider.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-core/target/classes/me/melkx/jwtmodule/core/service/JwtService.class" beforeDir="false" afterPath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-core/target/classes/me/melkx/jwtmodule/core/service/JwtService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-core/target/classes/me/melkx/jwtmodule/core/service/JwtServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-core/target/classes/me/melkx/jwtmodule/core/service/JwtServiceImpl.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-core/target/jwt-module-core-0.0.1.jar" beforeDir="false" afterPath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-core/target/jwt-module-core-0.0.1.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-core/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-core/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-core/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-core/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-spring-starter/src/main/java/me/melkx/jwtmodule/spring/JwtAutoConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-spring-starter/src/main/java/me/melkx/jwtmodule/spring/JwtAutoConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-spring-starter/src/main/java/me/melkx/jwtmodule/spring/JwtConfigurationProviderImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-spring-starter/src/main/java/me/melkx/jwtmodule/spring/JwtProperties.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-spring-starter/src/main/java/me/melkx/jwtmodule/spring/JwtSecretKeyProviderImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-spring-starter/src/main/java/me/melkx/jwtmodule/spring/JwtSecretKeyProviderImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -173,7 +112,9 @@
       <workItem from="1783939519897" duration="593000" />
       <workItem from="1784021315622" duration="1519000" />
       <workItem from="1784046687910" duration="595000" />
-      <workItem from="1784063966716" duration="626000" />
+      <workItem from="1784063966716" duration="627000" />
+      <workItem from="1784142650654" duration="1270000" />
+      <workItem from="1784204494910" duration="595000" />
     </task>
     <servers />
   </component>

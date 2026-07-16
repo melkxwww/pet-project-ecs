@@ -23,7 +23,9 @@ public class FounderAuthController {
 
     @GetMapping("/sign-in")
     public ResponseEntity<JwtTokenPairResponse> signIn(@RequestBody @Valid FounderCredentialsRequest request) {
-
+        // MATCH PASSWORD
+        // BUILD JWT TOKEN
+        // RETURN
     }
 
     @GetMapping("/sign-out")

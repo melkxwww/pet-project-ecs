@@ -33,6 +33,8 @@ public class JwtServiceImpl implements JwtService {
     }
 
     public JwtServiceImpl(SecretKey secretKey) {
+        Objects.requireNonNull(secretKey, "Secret key cannot be null");
+
         this.secretKey = secretKey;
     }
 

@@ -7,10 +7,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import me.melkx.authmodule.exception.InternalAuthenticationException;
 import me.melkx.authmodule.exception.UnauthorizedAuthenticationException;
-import me.melkx.authmodule.dto.IgnoredUris;
+import me.melkx.authmodule.dto.AuthenticationIgnoredUris;
 import me.melkx.authmodule.service.AbstractAuthenticationFilter;
 import me.melkx.authmodule.strategy.jwt.service.JwtAuthenticationFactory;
-import me.melkx.jwtmodule.core.exception.JwtInternalException;
 import me.melkx.jwtmodule.core.exception.JwtInvalidTokenException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.AuthenticationEntryPoint;
@@ -21,7 +20,7 @@ import java.io.IOException;
 public class JwtAuthenticationFilter extends AbstractAuthenticationFilter {
     private final JwtAuthenticationFactory authenticationFactory;
     private final AuthenticationEntryPoint entryPoint;
-    private final IgnoredUris ignoredUris;
+    private final AuthenticationIgnoredUris ignoredUris;
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
@@ -29,7 +28,7 @@ public class JwtAuthenticationFilter extends AbstractAuthenticationFilter {
                 .anyMatch(uri -> request.getRequestURI().startsWith(uri));
     }
 
-    public JwtAuthenticationFilter(JwtAuthenticationFactory authenticationFactory, AuthenticationEntryPoint entryPoint, IgnoredUris ignoredUris) {
+    public JwtAuthenticationFilter(JwtAuthenticationFactory authenticationFactory, AuthenticationEntryPoint entryPoint, AuthenticationIgnoredUris ignoredUris) {
         this.authenticationFactory = authenticationFactory;
         this.entryPoint = entryPoint;
         this.ignoredUris = ignoredUris;

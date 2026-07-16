@@ -1,6 +1,6 @@
 package me.melkx.authservice.founder.security.factory;
 
-import me.melkx.authmodule.strategy.jwt.dto.FounderAccessTokenPayload;
+import me.melkx.authmodule.strategy.jwt.dto.founder.FounderAccessTokenPayload;
 import me.melkx.authmodule.strategy.jwt.service.AbstractJwtAuthenticationFactory;
 import me.melkx.authservice.founder.security.dto.FounderPrincipal;
 import me.melkx.jwtmodule.core.service.JwtService;
