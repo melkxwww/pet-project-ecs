@@ -1,0 +1,4 @@
+me.melkx.jwtmodule.spring.JwtAutoConfig
+me.melkx.authmodule.core.config.SecurityConfig
+me.melkx.authmodule.core.config.OtherConfig
+me.melkx.authmodule.jwt.config.JwtSecurityConfig

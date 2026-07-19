@@ -1,7 +1,7 @@
 package me.melkx.authservice.facade;
 
-import me.melkx.authmodule.strategy.jwt.dto.TypedTokenPayload;
 import me.melkx.authservice.config.JwtValidityTimeProperties;
+import me.melkx.jwtmodule.core.dto.TokenPayload;
 import me.melkx.jwtmodule.core.service.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -19,11 +19,11 @@ public class JwtAuthFacade {
         this.jwtTimeProperties = jwtTimeProperties;
     }
 
-    public String generateAccessToken(TypedTokenPayload payload) {
-        return jwtService.generateToken(payload, Duration.ofSeconds(jwtTimeProperties.getAccessValiditySeconds()));
+    public String generateAccessToken(TokenPayload payload) {
+        return jwtService.generate(payload, Duration.ofSeconds(jwtTimeProperties.getAccessValiditySeconds()));
     }
 
-    public String generateRefreshToken(TypedTokenPayload payload) {
-        return jwtService.generateToken(payload, Duration.ofSeconds(jwtTimeProperties.getRefreshValiditySeconds()));
+    public String generateRefreshToken(TokenPayload payload) {
+        return jwtService.generate(payload, Duration.ofSeconds(jwtTimeProperties.getRefreshValiditySeconds()));
     }
 }

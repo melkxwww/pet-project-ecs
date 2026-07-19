@@ -8,7 +8,6 @@
       <change afterPath="$PROJECT_DIR$/../auth-service/src/main/java/me/melkx/authservice/security/config/SignInSecurityConfig.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../auth-service/src/main/resources/META-INF/spring-configuration-metadata.json" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../auth-service/src/main/resources/META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-core/src/main/java/me/melkx/jwtmodule/config/JwtAutoConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../auth-module/src/main/java/me/melkx/authmodule/core/config/OtherConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../auth-module/src/main/java/me/melkx/authmodule/core/config/OtherConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../auth-module/src/main/java/me/melkx/authmodule/core/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../auth-module/src/main/java/me/melkx/authmodule/core/config/SecurityConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../auth-module/src/main/java/me/melkx/authmodule/core/dto/AuthenticationContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/../auth-module/src/main/java/me/melkx/authmodule/core/dto/AuthenticationContext.java" afterDir="false" />
@@ -38,32 +37,54 @@
       <change beforePath="$PROJECT_DIR$/../auth-service/src/main/java/me/melkx/authservice/security/converter/FounderAuthenticationConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../auth-service/src/main/java/me/melkx/authservice/security/converter/FounderAuthenticationConverter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../auth-service/src/main/java/me/melkx/authservice/service/FounderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../auth-service/src/main/java/me/melkx/authservice/service/FounderService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../auth-service/src/main/resources/db/changelog/db.changelog-master.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../auth-service/src/main/resources/db/changelog/db.changelog-master.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/ecs-bom-parent.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecs-bom-core/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecs-bom-core/.idea/jarRepositories.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecs-bom-core/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecs-bom-core/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecs-bom-core/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecs-bom-spring/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecs-bom-spring/.idea/jarRepositories.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecs-bom-spring/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecs-bom-spring/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecs-bom-spring/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecs-bom-versions/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../jwt-module-parent/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../jwt-module-parent/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ecs-bom-parent/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ecs-bom-parent/.idea/ecs-bom-parent.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ecs-bom-parent/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ecs-bom-parent/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../jwt-module/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ecs-bom-parent/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ecs-bom-parent/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ecs-bom-parent/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ecs-bom-parent/ecs-bom-core/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../jwt-module/.idea/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ecs-bom-parent/ecs-bom-core/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../jwt-module/.idea/jarRepositories.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ecs-bom-parent/ecs-bom-core/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ecs-bom-parent/ecs-bom-core/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../jwt-module/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ecs-bom-parent/ecs-bom-core/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ecs-bom-parent/ecs-bom-spring/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ecs-bom-parent/ecs-bom-spring/.idea/jarRepositories.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ecs-bom-parent/ecs-bom-spring/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ecs-bom-parent/ecs-bom-spring/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ecs-bom-parent/ecs-bom-spring/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ecs-bom-parent/ecs-bom-versions/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ecs-bom-parent/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../eureka-server/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../eureka-server/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../eureka-server/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../eureka-server/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../eureka-server/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../eureka-server/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../eureka-server/src/main/java/me/melkx/eurekaserver/EurekaServerApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../eureka-server/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../jwt-module-parent/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../jwt-module-parent/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../jwt-module-parent/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../jwt-module-parent/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../jwt-module-parent/.idea/jarRepositories.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../jwt-module-parent/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../jwt-module-parent/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../jwt-module-parent/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-core/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-core/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-core/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-core/.idea/jarRepositories.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-core/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-core/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-core/src/main/java/me/melkx/jwtmodule/core/dto/JsonTokenType.java" beforeDir="false" afterPath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-core/src/main/java/me/melkx/jwtmodule/core/dto/JsonTokenType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-core/src/main/java/me/melkx/jwtmodule/core/exception/JwtInvalidTokenException.java" beforeDir="false" afterPath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-core/src/main/java/me/melkx/jwtmodule/core/exception/JwtInvalidTokenException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-core/src/main/java/me/melkx/jwtmodule/core/service/JwtService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-core/src/main/java/me/melkx/jwtmodule/core/service/JwtService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-core/src/main/java/me/melkx/jwtmodule/core/dto/JsonTokenType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-core/src/main/java/me/melkx/jwtmodule/core/dto/TokenPayload.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-core/src/main/java/me/melkx/jwtmodule/core/exception/JwtInvalidTokenException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-core/src/main/java/me/melkx/jwtmodule/core/exception/JwtProcessingException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-core/src/main/java/me/melkx/jwtmodule/core/service/JwtService.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-core/src/main/java/me/melkx/jwtmodule/core/service/JwtServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-core/src/main/java/me/melkx/jwtmodule/core/service/ValidationResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-core/src/main/java/me/melkx/jwtmodule/core/service/ValidationResult.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-core/src/main/java/me/melkx/jwtmodule/core/service/ValidationResult.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-core/target/classes/me/melkx/jwtmodule/core/dto/JsonTokenType.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-core/target/classes/me/melkx/jwtmodule/core/dto/TokenPayload.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-core/target/classes/me/melkx/jwtmodule/core/exception/JwtInternalException.class" beforeDir="false" />
@@ -82,7 +103,8 @@
       <change beforePath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-spring-starter/pom.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-spring-starter/src/main/java/me/melkx/jwtmodule/spring/JwtAutoConfig.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-spring-starter/src/main/java/me/melkx/jwtmodule/spring/JwtSecretKeyProvider.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-spring-starter/src/main/java/me/melkx/jwtmodule/spring/JwtSecretKeyProviderImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-core/src/main/java/me/melkx/jwtmodule/provider/JwtSecretKeyProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../jwt-module-parent/jwt-module-spring-starter/src/main/java/me/melkx/jwtmodule/spring/JwtSecretKeyProviderImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../jwt-module-parent/pom.xml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,6 +126,13 @@
     &quot;accountId&quot;: &quot;83247f88-f03b-4fc1-8cc9-297603fbe0ec&quot;
   }
 }</component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
 }</component>
@@ -194,7 +223,8 @@
       <workItem from="1784242532698" duration="23000" />
       <workItem from="1784242671839" duration="673000" />
       <workItem from="1784406665593" duration="109000" />
-      <workItem from="1784482088910" duration="1701000" />
+      <workItem from="1784482088910" duration="1644000" />
+      <workItem from="1784484307767" duration="1443000" />
     </task>
     <servers />
   </component>

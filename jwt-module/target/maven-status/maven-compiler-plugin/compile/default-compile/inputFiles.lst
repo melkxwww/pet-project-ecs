@@ -1,0 +1,8 @@
+C:\Users\d3fix\IdeaProjects\pet-project-ecs\jwt-module\src\main\java\me\melkx\jwtmodule\config\JwtAutoConfig.java
+C:\Users\d3fix\IdeaProjects\pet-project-ecs\jwt-module\src\main\java\me\melkx\jwtmodule\provider\JwtSecretKeyProvider.java
+C:\Users\d3fix\IdeaProjects\pet-project-ecs\jwt-module\src\main\java\me\melkx\jwtmodule\core\exception\JwtInvalidTokenException.java
+C:\Users\d3fix\IdeaProjects\pet-project-ecs\jwt-module\src\main\java\me\melkx\jwtmodule\core\exception\JwtProcessingException.java
+C:\Users\d3fix\IdeaProjects\pet-project-ecs\jwt-module\src\main\java\me\melkx\jwtmodule\core\dto\JsonTokenType.java
+C:\Users\d3fix\IdeaProjects\pet-project-ecs\jwt-module\src\main\java\me\melkx\jwtmodule\core\service\JwtService.java
+C:\Users\d3fix\IdeaProjects\pet-project-ecs\jwt-module\src\main\java\me\melkx\jwtmodule\core\dto\TokenPayload.java
+C:\Users\d3fix\IdeaProjects\pet-project-ecs\jwt-module\src\main\java\me\melkx\jwtmodule\core\service\ValidationResult.java
