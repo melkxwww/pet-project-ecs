@@ -1,0 +1,8 @@
+me\melkx\jwtmodule\service\JwtGeneratorTest$AccessTokenPayload.class
+me\melkx\jwtmodule\service\JwtGeneratorTest$JwtGeneratorParams.class
+me\melkx\jwtmodule\service\JwtParserTest$TestTokenPayload.class
+me\melkx\jwtmodule\service\JwtGeneratorTest.class
+me\melkx\jwtmodule\service\JwtGeneratorTest$RefreshTokenPayload.class
+me\melkx\jwtmodule\preparer\JwtSecretKeyPreparerTest.class
+me\melkx\jwtmodule\service\JwtParserTest.class
+me\melkx\jwtmodule\service\JwtParserTest$JwtParserParams.class

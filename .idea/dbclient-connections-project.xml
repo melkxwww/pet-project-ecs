@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DbClientProjectConnectionStore">
+    <option name="connections">
+      <list>
+        <ConnectionEntry>
+          <option name="ssh">
+            <SshConfig />
+          </option>
+          <option name="ssl">
+            <SslConfig />
+          </option>
+          <option name="id" value="db7e0e84-f9a3-49dc-b065-5c77f5d9ee15" />
+          <option name="name" value="AUTH_SERVICE_DB" />
+          <option name="databaseId" value="postgres" />
+          <option name="port" value="5432" />
+          <option name="username" value="postgres" />
+          <option name="database" value="auth_service" />
+        </ConnectionEntry>
+      </list>
+    </option>
+  </component>
+</project>

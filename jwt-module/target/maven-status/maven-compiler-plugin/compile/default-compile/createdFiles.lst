@@ -1,0 +1,11 @@
+me\melkx\jwtmodule\service\JwtParser.class
+me\melkx\jwtmodule\dto\TokenPayload.class
+me\melkx\jwtmodule\exception\JwtProcessingException.class
+me\melkx\jwtmodule\service\ParseResult.class
+me\melkx\jwtmodule\config\JwtAutoConfig.class
+me\melkx\jwtmodule\properties\JwtValidityTimeProperties.class
+me\melkx\jwtmodule\dto\JsonTokenType.class
+me\melkx\jwtmodule\service\JwtGenerator.class
+me\melkx\jwtmodule\service\JwtGenerator$1.class
+me\melkx\jwtmodule\preparer\JwtSecretKeyPreparer.class
+me\melkx\jwtmodule\package-info.class

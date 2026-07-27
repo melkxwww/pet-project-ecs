@@ -27,7 +27,8 @@ public class SignInAuthenticationProvider implements AuthenticationProvider {
     }
 
     @Override
-    public @Nullable Authentication authenticate(Authentication authentication) throws AuthenticationException {
+    public @Nullable Authentication authenticate(Authentication authentication)
+            throws AuthenticationException {
         SignInAuthenticationToken token;
         if (!(authentication instanceof SignInAuthenticationToken))
             throw new IllegalArgumentException("Invalid authentication provided!");
