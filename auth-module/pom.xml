@@ -23,22 +23,26 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-tomcat</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-jackson</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>me.melkx</groupId>
-            <artifactId>jwt-module-spring-starter</artifactId>
+            <artifactId>jwt-module</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aspectj</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>me.melkx</groupId>
@@ -50,14 +54,7 @@
         <dependencies>
             <dependency>
                 <groupId>me.melkx</groupId>
-                <artifactId>ecs-bom-spring</artifactId>
-                <version>0.0.1</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>me.melkx</groupId>
-                <artifactId>ecs-bom-core</artifactId>
+                <artifactId>ecs-dependencies</artifactId>
                 <version>0.0.1</version>
                 <type>pom</type>
                 <scope>import</scope>

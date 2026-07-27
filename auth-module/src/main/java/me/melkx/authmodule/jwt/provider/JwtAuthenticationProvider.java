@@ -1,43 +1,46 @@
 package me.melkx.authmodule.jwt.provider;
 
+import me.melkx.authmodule.api.dto.AuthenticationContext;
+import me.melkx.authmodule.api.service.AuthenticationContextProvider;
 import me.melkx.authmodule.jwt.dto.AccessTokenPayload;
-import me.melkx.authmodule.core.dto.AuthenticationContext;
-import me.melkx.authmodule.core.service.AuthenticationContextProvider;
 import me.melkx.authmodule.jwt.token.JwtAuthenticationToken;
-import me.melkx.jwtmodule.core.service.JwtService;
-import me.melkx.jwtmodule.core.service.ValidationResult;
+import me.melkx.jwtmodule.service.JwtParser;
+import me.melkx.jwtmodule.service.ParseResult;
 import org.jspecify.annotations.Nullable;
 import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 
+import java.util.Objects;
+
 public class JwtAuthenticationProvider implements AuthenticationProvider {
     private final AuthenticationContextProvider contextProvider;
-    private final JwtService jwtService;
+    private final JwtParser jwtParser;
 
-    public JwtAuthenticationProvider(AuthenticationContextProvider contextProvider, JwtService jwtService) {
-        this.contextProvider = contextProvider;
-        this.jwtService = jwtService;
+    public JwtAuthenticationProvider(AuthenticationContextProvider contextProvider, JwtParser jwtParser) {
+        this.contextProvider = Objects.requireNonNull(contextProvider, "contextProvider cannot be null");
+        this.jwtParser = Objects.requireNonNull(jwtParser, "jwtParser cannot be null");
     }
 
     @Override
     public @Nullable Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        JwtAuthenticationToken token;
-        if (!(authentication instanceof JwtAuthenticationToken))
-            throw new IllegalArgumentException("Invalid authentication provided!");
+        Objects.requireNonNull(authentication, "authentication cannot be null");
 
-        token = (JwtAuthenticationToken) authentication;
+        if (!(authentication instanceof JwtAuthenticationToken token))
+            throw new AuthenticationServiceException("Invalid authentication provided!");
 
         String jwtToken = (String) token.getPrincipal();
 
-        ValidationResult result = jwtService.validate(jwtToken);
-        if (!result.valid())
-            throw new BadCredentialsException(result.errorMessage());
+        if(jwtToken == null)
+            throw new AuthenticationServiceException("Invalid authentication token");
 
-        AccessTokenPayload payload = jwtService.read(jwtToken, AccessTokenPayload.class);
+        ParseResult<AccessTokenPayload> result = jwtParser.parse(jwtToken, AccessTokenPayload.class);
+        if (!result.valid() || result.result() == null)
+            throw new BadCredentialsException("Bad token provided: " + result.errorMessage());
 
-        AuthenticationContext authorization = contextProvider.loadContextByPublicId(payload.id());
+        AuthenticationContext authorization = contextProvider.loadContextByPublicId(result.result().sub());
         authentication = new JwtAuthenticationToken(
                 authorization.principal(),
                 authorization.authorities()

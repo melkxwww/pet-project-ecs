@@ -1,12 +1,12 @@
-package me.melkx.authmodule.core.filter;
+package me.melkx.authmodule.common.filter;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import me.melkx.authmodule.core.exception.InternalAuthenticationException;
 import org.jspecify.annotations.Nullable;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,6 +16,7 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class DelegatingAuthenticationFilter extends OncePerRequestFilter {
     private final AuthenticationManager authenticationManager;
@@ -27,9 +28,9 @@ public class DelegatingAuthenticationFilter extends OncePerRequestFilter {
                                           AuthenticationConverter authenticationConverter,
                                           AuthenticationEntryPoint entryPoint,
                                           @Nullable RequestMatcher skipMatcher) {
-        this.authenticationManager = authenticationManager;
-        this.authenticationConverter = authenticationConverter;
-        this.entryPoint = entryPoint;
+        this.authenticationManager = Objects.requireNonNull(authenticationManager, "authenticationManager cannot be null");
+        this.authenticationConverter = Objects.requireNonNull(authenticationConverter, "authenticationConverter cannot be null");
+        this.entryPoint = Objects.requireNonNull(entryPoint, "entryPoint cannot be null");
         this.skipMatcher = skipMatcher;
     }
 
@@ -51,7 +52,7 @@ public class DelegatingAuthenticationFilter extends OncePerRequestFilter {
             return;
         } catch (Exception e) {
             SecurityContextHolder.clearContext();
-            entryPoint.commence(request, response, new InternalAuthenticationException(e.getMessage()));
+            entryPoint.commence(request, response, new AuthenticationServiceException(e.getMessage()));
             return;
         }
 

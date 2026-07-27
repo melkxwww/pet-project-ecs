@@ -5,6 +5,7 @@ import io.jsonwebtoken.security.Keys;
 import me.melkx.jwtmodule.dto.JsonTokenType;
 import me.melkx.jwtmodule.dto.TokenPayload;
 import me.melkx.jwtmodule.properties.JwtValidityTimeProperties;
+import org.jspecify.annotations.NonNull;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -141,7 +142,7 @@ class JwtParserTest {
         }
 
         @Override
-        public JsonTokenType getTokenType() {
+        public @NonNull JsonTokenType getTokenType() {
             return JsonTokenType.ACCESS;
         }
     }

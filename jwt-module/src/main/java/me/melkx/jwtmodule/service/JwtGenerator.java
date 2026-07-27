@@ -3,7 +3,6 @@ package me.melkx.jwtmodule.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
-import lombok.NonNull;
 import me.melkx.jwtmodule.dto.JsonTokenType;
 import me.melkx.jwtmodule.dto.TokenPayload;
 import me.melkx.jwtmodule.exception.JwtProcessingException;

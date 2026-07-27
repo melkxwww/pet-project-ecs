@@ -1,10 +1,14 @@
 C:\Users\defix\Documents\Projects\Java\ECS\jwt-module\src\main\java\me\melkx\jwtmodule\config\JwtAutoConfig.java
 C:\Users\defix\Documents\Projects\Java\ECS\jwt-module\src\main\java\me\melkx\jwtmodule\dto\JsonTokenType.java
+C:\Users\defix\Documents\Projects\Java\ECS\jwt-module\src\main\java\me\melkx\jwtmodule\dto\package-info.java
 C:\Users\defix\Documents\Projects\Java\ECS\jwt-module\src\main\java\me\melkx\jwtmodule\dto\TokenPayload.java
 C:\Users\defix\Documents\Projects\Java\ECS\jwt-module\src\main\java\me\melkx\jwtmodule\exception\JwtProcessingException.java
-C:\Users\defix\Documents\Projects\Java\ECS\jwt-module\src\main\java\me\melkx\jwtmodule\package-info.java
+C:\Users\defix\Documents\Projects\Java\ECS\jwt-module\src\main\java\me\melkx\jwtmodule\exception\package-info.java
 C:\Users\defix\Documents\Projects\Java\ECS\jwt-module\src\main\java\me\melkx\jwtmodule\preparer\JwtSecretKeyPreparer.java
+C:\Users\defix\Documents\Projects\Java\ECS\jwt-module\src\main\java\me\melkx\jwtmodule\preparer\package-info.java
 C:\Users\defix\Documents\Projects\Java\ECS\jwt-module\src\main\java\me\melkx\jwtmodule\properties\JwtValidityTimeProperties.java
+C:\Users\defix\Documents\Projects\Java\ECS\jwt-module\src\main\java\me\melkx\jwtmodule\properties\package-info.java
 C:\Users\defix\Documents\Projects\Java\ECS\jwt-module\src\main\java\me\melkx\jwtmodule\service\JwtGenerator.java
 C:\Users\defix\Documents\Projects\Java\ECS\jwt-module\src\main\java\me\melkx\jwtmodule\service\JwtParser.java
+C:\Users\defix\Documents\Projects\Java\ECS\jwt-module\src\main\java\me\melkx\jwtmodule\service\package-info.java
 C:\Users\defix\Documents\Projects\Java\ECS\jwt-module\src\main\java\me\melkx\jwtmodule\service\ParseResult.java

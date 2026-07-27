@@ -1,3 +1,3 @@
-@NullMarked package me.melkx.jwtmodule;
+@NullMarked package me.melkx.jwtmodule.dto;
 
 import org.jspecify.annotations.NullMarked;

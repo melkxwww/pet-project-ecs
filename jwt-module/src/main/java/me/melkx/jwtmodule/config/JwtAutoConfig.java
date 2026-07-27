@@ -42,13 +42,11 @@ public class JwtAutoConfig {
     }
 
     @Bean
-    @ConditionalOnProperty(prefix = "ecs.jwt.generator.enabled", havingValue = "true")
     public JwtGenerator jwtGenerator(JwtValidityTimeProperties validityTimeProperties) {
         return new JwtGenerator(secretKey, validityTimeProperties, objectMapper());
     }
 
     @Bean
-    @ConditionalOnProperty(prefix = "ecs.jwt.parser.enabled", havingValue = "true")
     public JwtParser jwtParser() {
         return new JwtParser(secretKey, objectMapper());
     }

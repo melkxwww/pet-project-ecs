@@ -1,7 +1,8 @@
 package me.melkx.authmodule.core.config;
 
-import me.melkx.authmodule.core.filter.RestAuthenticationEntryPoint;
+import me.melkx.authmodule.common.filter.FormattedAuthenticationEntryPoint;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -13,7 +14,8 @@ import tools.jackson.databind.ObjectMapper;
 @EnableMethodSecurity
 public class SecurityConfig {
     @Bean
+    @ConditionalOnMissingBean(AuthenticationEntryPoint.class)
     public AuthenticationEntryPoint authenticationEntryPoint(ObjectMapper objectMapper) {
-        return new RestAuthenticationEntryPoint(objectMapper);
+        return new FormattedAuthenticationEntryPoint(objectMapper);
     }
 }

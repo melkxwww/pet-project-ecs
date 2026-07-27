@@ -1,22 +1,23 @@
-package me.melkx.authmodule.core.filter;
+package me.melkx.authmodule.common.filter;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import me.melkx.authmodule.core.exception.InternalAuthenticationException;
 import me.melkx.shared.FormattedError;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import tools.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
-public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
+public class FormattedAuthenticationEntryPoint implements AuthenticationEntryPoint {
     private final ObjectMapper objectMapper;
 
-    public RestAuthenticationEntryPoint(ObjectMapper objectMapper) {
-        this.objectMapper = objectMapper;
+    public FormattedAuthenticationEntryPoint(ObjectMapper objectMapper) {
+        this.objectMapper = Objects.requireNonNull(objectMapper, "objectMapper cannot be null");
     }
 
     @Override
@@ -39,7 +40,7 @@ public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
     }
 
     private HttpStatus resolveHttpStatus(AuthenticationException exception) {
-        if (exception instanceof InternalAuthenticationException) {
+        if (exception instanceof AuthenticationServiceException) {
             return HttpStatus.INTERNAL_SERVER_ERROR;
         }
 

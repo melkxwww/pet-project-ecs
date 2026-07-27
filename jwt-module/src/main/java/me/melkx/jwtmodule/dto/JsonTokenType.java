@@ -2,6 +2,7 @@ package me.melkx.jwtmodule.dto;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import org.jspecify.annotations.NonNull;
 
 import java.util.Objects;
 

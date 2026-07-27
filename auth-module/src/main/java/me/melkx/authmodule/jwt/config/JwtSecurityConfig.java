@@ -2,11 +2,17 @@ package me.melkx.authmodule.jwt.config;
 
 import me.melkx.authmodule.jwt.converter.JwtAuthenticationConverter;
 import me.melkx.authmodule.jwt.provider.JwtAuthenticationProvider;
-import me.melkx.authmodule.core.filter.DelegatingAuthenticationFilter;
-import me.melkx.authmodule.core.service.AuthenticationContextProvider;
-import me.melkx.jwtmodule.core.service.JwtService;
+import me.melkx.authmodule.common.filter.DelegatingAuthenticationFilter;
+import me.melkx.authmodule.api.service.AuthenticationContextProvider;
+import me.melkx.jwtmodule.config.JwtAutoConfig;
+import me.melkx.jwtmodule.service.JwtParser;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperties;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -17,28 +23,41 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AnonymousAuthenticationFilter;
 import org.springframework.security.web.authentication.AuthenticationConverter;
+import org.springframework.security.web.util.matcher.RequestMatcher;
 
-@AutoConfiguration
+@AutoConfiguration(after = JwtAutoConfig.class)
+@ConditionalOnProperties({
+        @ConditionalOnProperty(prefix = "ecs.security.auth-type", havingValue = "jwt"),
+        @ConditionalOnProperty(prefix = "ecs.security.auth-type", matchIfMissing = true)
+})
 public class JwtSecurityConfig {
-    @Bean
+    @Bean("jwtAuthenticationConverter")
     public AuthenticationConverter jwtAuthenticationConverter() {
         return new JwtAuthenticationConverter();
     }
 
-    @Bean
-    public AuthenticationProvider jwtAuthenticationProvider(AuthenticationContextProvider contextProvider, JwtService jwtService) {
-        return new JwtAuthenticationProvider(contextProvider, jwtService);
+    @Bean("jwtAuthenticationProvider")
+    public AuthenticationProvider jwtAuthenticationProvider(AuthenticationContextProvider contextProvider, JwtParser jwtParser) {
+        return new JwtAuthenticationProvider(contextProvider, jwtParser);
     }
 
-    @Bean
-    public DelegatingAuthenticationFilter jwtAuthenticationFilter(AuthenticationManager authenticationManager,
-                                                                  AuthenticationConverter jwtAuthenticationConverter,
-                                                                  AuthenticationEntryPoint entryPoint) {
-        return new DelegatingAuthenticationFilter(authenticationManager, jwtAuthenticationConverter, entryPoint, null);
+    @Bean("jwtAuthenticationFilter")
+    public DelegatingAuthenticationFilter jwtAuthenticationFilter(
+            @Qualifier("jwtAuthenticationManager") AuthenticationManager authenticationManager,
+            @Qualifier("jwtAuthenticationConverter") AuthenticationConverter authenticationConverter,
+            AuthenticationEntryPoint entryPoint,
+            @Autowired(required = false)
+            @Qualifier("jwtRequestMatcher") RequestMatcher requestMatcher) {
+        return new DelegatingAuthenticationFilter(
+                authenticationManager,
+                authenticationConverter,
+                entryPoint,
+                requestMatcher
+        );
     }
 
-    @Bean
-    @ConditionalOnMissingBean(SecurityFilterChain.class)
+
+    @Bean("jwtSecurityFilterChain")
     public SecurityFilterChain filterChain(HttpSecurity http, DelegatingAuthenticationFilter jwtFilter) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
