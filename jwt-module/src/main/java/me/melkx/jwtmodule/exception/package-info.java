@@ -1,3 +1,4 @@
-@NullMarked package me.melkx.jwtmodule.exception;
+@NullMarked
+package me.melkx.jwtmodule.exception;
 
 import org.jspecify.annotations.NullMarked;

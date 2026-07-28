@@ -17,7 +17,8 @@ import java.io.StringWriter;
 import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class FormattedAuthenticationEntryPointTest {
@@ -61,7 +62,8 @@ class FormattedAuthenticationEntryPointTest {
     void commence_ShouldReturnUnauthorizedStatus_WhenAuthenticationExceptionOccurs() throws Exception {
         String errorMessage = "Invalid credentials";
         String requestURI = "/api/test";
-        AuthenticationException authException = new AuthenticationException(errorMessage) {};
+        AuthenticationException authException = new AuthenticationException(errorMessage) {
+        };
 
         when(request.getRequestURI()).thenReturn(requestURI);
 
@@ -137,7 +139,8 @@ class FormattedAuthenticationEntryPointTest {
     @Test
     void commence_ShouldHandleExceptionWithNullMessage() throws Exception {
         String requestURI = "/api/test";
-        AuthenticationException authException = new AuthenticationException((String) null) {};
+        AuthenticationException authException = new AuthenticationException((String) null) {
+        };
 
         when(request.getRequestURI()).thenReturn(requestURI);
 
@@ -157,7 +160,8 @@ class FormattedAuthenticationEntryPointTest {
 
     @Test
     void commence_ShouldSetCorrectContentTypeAndStatus() throws Exception {
-        AuthenticationException authException = new AuthenticationException("Test") {};
+        AuthenticationException authException = new AuthenticationException("Test") {
+        };
         String requestURI = "/api/test";
 
         when(request.getRequestURI()).thenReturn(requestURI);
@@ -177,7 +181,8 @@ class FormattedAuthenticationEntryPointTest {
     void commence_ShouldWriteValidJsonResponse() throws Exception {
         String errorMessage = "Authentication failed";
         String requestURI = "/api/protected/resource";
-        AuthenticationException authException = new AuthenticationException(errorMessage) {};
+        AuthenticationException authException = new AuthenticationException(errorMessage) {
+        };
 
         when(request.getRequestURI()).thenReturn(requestURI);
 
@@ -205,7 +210,8 @@ class FormattedAuthenticationEntryPointTest {
 
     @Test
     void commence_ShouldHandleIOException_WhenWriterThrowsException() throws Exception {
-        AuthenticationException authException = new AuthenticationException("Test") {};
+        AuthenticationException authException = new AuthenticationException("Test") {
+        };
         String requestURI = "/api/test";
 
         when(request.getRequestURI()).thenReturn(requestURI);
@@ -218,7 +224,8 @@ class FormattedAuthenticationEntryPointTest {
 
     @Test
     void commence_ShouldIncludeTimestampInResponse() throws Exception {
-        AuthenticationException authException = new AuthenticationException("Test") {};
+        AuthenticationException authException = new AuthenticationException("Test") {
+        };
         String requestURI = "/api/test";
 
         when(request.getRequestURI()).thenReturn(requestURI);
@@ -240,7 +247,8 @@ class FormattedAuthenticationEntryPointTest {
 
     @Test
     void commence_ShouldHandleEmptyRequestURI() throws Exception {
-        AuthenticationException authException = new AuthenticationException("Test") {};
+        AuthenticationException authException = new AuthenticationException("Test") {
+        };
         when(request.getRequestURI()).thenReturn("");
 
         StringWriter stringWriter = new StringWriter();
@@ -256,7 +264,8 @@ class FormattedAuthenticationEntryPointTest {
 
     @Test
     void commence_ShouldHandleNullRequestURI() throws Exception {
-        AuthenticationException authException = new AuthenticationException("Test") {};
+        AuthenticationException authException = new AuthenticationException("Test") {
+        };
         when(request.getRequestURI()).thenReturn(null);
 
         StringWriter stringWriter = new StringWriter();
@@ -273,7 +282,8 @@ class FormattedAuthenticationEntryPointTest {
     @Test
     void commence_ShouldHandleAuthenticationExceptionWithCustomMessage() throws Exception {
         String customMessage = "Custom authentication error: token expired";
-        AuthenticationException authException = new AuthenticationException(customMessage) {};
+        AuthenticationException authException = new AuthenticationException(customMessage) {
+        };
         String requestURI = "/api/secure";
 
         when(request.getRequestURI()).thenReturn(requestURI);

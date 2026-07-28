@@ -37,7 +37,7 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
 
         String jwtToken = (String) token.getPrincipal();
 
-        if(jwtToken == null)
+        if (jwtToken == null)
             throw new AuthenticationServiceException("Invalid authentication token");
 
         log.debug("Authentication token correct");

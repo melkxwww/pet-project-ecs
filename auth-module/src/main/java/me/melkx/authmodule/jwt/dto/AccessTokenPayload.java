@@ -2,7 +2,6 @@ package me.melkx.authmodule.jwt.dto;
 
 import me.melkx.jwtmodule.dto.JsonTokenType;
 import me.melkx.jwtmodule.dto.TokenPayload;
-import org.jspecify.annotations.NonNull;
 
 import java.util.Objects;
 import java.util.UUID;

@@ -1,7 +1,7 @@
 package me.melkx.authservice.repository;
 
-import me.melkx.authservice.entity.Founder;
 import me.melkx.authservice.dto.FounderDto;
+import me.melkx.authservice.entity.Founder;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

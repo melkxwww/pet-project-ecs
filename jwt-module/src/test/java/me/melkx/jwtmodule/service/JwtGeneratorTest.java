@@ -1,7 +1,6 @@
 package me.melkx.jwtmodule.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.security.Keys;
 import me.melkx.jwtmodule.dto.JsonTokenType;
 import me.melkx.jwtmodule.dto.TokenPayload;
@@ -19,7 +18,8 @@ import java.util.Map;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class JwtGeneratorTest {

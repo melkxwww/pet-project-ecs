@@ -2,8 +2,8 @@ package me.melkx.authservice.security.converter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
-import me.melkx.authservice.security.CachedBodyHttpServletRequest;
 import me.melkx.authservice.dto.EmployeeAuthenticationRequest;
+import me.melkx.authservice.security.CachedBodyHttpServletRequest;
 import me.melkx.authservice.security.dto.EmployeeUnresolvedId;
 import me.melkx.authservice.security.token.SignInAuthenticationToken;
 import org.jspecify.annotations.Nullable;

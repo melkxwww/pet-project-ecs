@@ -1,3 +1,4 @@
-@NullMarked package me.melkx.authmodule.jwt.provider;
+@NullMarked
+package me.melkx.authmodule.jwt.provider;
 
 import org.jspecify.annotations.NullMarked;
