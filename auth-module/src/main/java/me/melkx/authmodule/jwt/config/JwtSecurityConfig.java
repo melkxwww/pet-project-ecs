@@ -2,15 +2,13 @@ package me.melkx.authmodule.jwt.config;
 
 import me.melkx.authmodule.jwt.converter.JwtAuthenticationConverter;
 import me.melkx.authmodule.jwt.provider.JwtAuthenticationProvider;
-import me.melkx.authmodule.common.filter.DelegatingAuthenticationFilter;
+import me.melkx.authmodule.filter.DelegatingAuthenticationFilter;
 import me.melkx.authmodule.api.service.AuthenticationContextProvider;
 import me.melkx.jwtmodule.config.JwtAutoConfig;
 import me.melkx.jwtmodule.service.JwtParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperties;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;

@@ -1,115 +1,94 @@
 package me.melkx.jwtmodule.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import me.melkx.jwtmodule.dto.JsonTokenType;
 import me.melkx.jwtmodule.dto.TokenPayload;
 import me.melkx.jwtmodule.properties.JwtValidityTimeProperties;
-import org.jspecify.annotations.NonNull;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.MethodSource;
-import org.mockito.MockedStatic;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import javax.crypto.SecretKey;
+import java.nio.charset.StandardCharsets;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-import javax.crypto.SecretKey;
-
-import java.nio.charset.StandardCharsets;
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-import java.util.List;
-import java.util.UUID;
-
+@ExtendWith(MockitoExtension.class)
 class JwtParserTest {
-    private static final SecretKey SECRET_KEY =
-            Keys.hmacShaKeyFor("12345678901234567890123456789012".getBytes(StandardCharsets.UTF_8));
+    private static final String SECRET_KEY_STRING = "12345678901234567890123456789012";
 
-    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+    private SecretKey secretKey;
+    private ObjectMapper objectMapper;
+    private JwtParser parser;
+    private JwtGenerator generator;
 
-    private static final JwtParser PARSER = new JwtParser(SECRET_KEY, OBJECT_MAPPER);
+    @Mock
+    private ObjectMapper mockObjectMapper;
 
-    @ParameterizedTest
-    @MethodSource("provideJwtParsersParams")
-    void createJwtParserConstructor_ShouldThrowException_WhenAnyParamIsNull(JwtParserParams params) {
-        assertThatThrownBy(() -> new JwtParser(params.secretKey(), params.objectMapper()))
-                .isInstanceOf(NullPointerException.class);
+    @BeforeEach
+    void setUp() {
+        secretKey = Keys.hmacShaKeyFor(SECRET_KEY_STRING.getBytes(StandardCharsets.UTF_8));
+        objectMapper = new ObjectMapper();
+        parser = new JwtParser(secretKey, objectMapper);
+
+        JwtValidityTimeProperties validityTimeProperties = new JwtValidityTimeProperties(60, 60);
+        generator = new JwtGenerator(secretKey, validityTimeProperties, objectMapper);
     }
 
-    static List<JwtParserParams> provideJwtParsersParams() {
-        return List.of(
-                new JwtParserParams(null, OBJECT_MAPPER),
-                new JwtParserParams(SECRET_KEY, null)
-        );
+    // TESTS FOR CONSTRUCTOR
+
+    @Test
+    void constructor_ShouldThrowException_WhenSecretKeyIsNull() {
+        assertThatThrownBy(() -> new JwtParser(null, mockObjectMapper))
+                .isInstanceOf(NullPointerException.class)
+                .hasMessageContaining("secretKey cannot be null");
     }
 
     @Test
-    void parse_ShouldThrowException_WhenTokenOrTargetIsNull() {
-        assertThatThrownBy(() -> PARSER.parse(null, TestTokenPayload.class))
+    void constructor_ShouldThrowException_WhenObjectMapperIsNull() {
+        assertThatThrownBy(() -> new JwtParser(mock(SecretKey.class), null))
+                .isInstanceOf(NullPointerException.class)
+                .hasMessageContaining("objectMapper cannot be null");
+    }
+
+    @Test
+    void constructor_ShouldNotThrowException_WhenAllParamsAreValid() {
+        assertThatCode(() -> new JwtParser(secretKey, objectMapper))
+                .doesNotThrowAnyException();
+    }
+
+    // TESTS FOR PARSE METHOD
+
+    @Test
+    void parse_ShouldThrowException_WhenTokenIsNull() {
+        assertThatThrownBy(() -> parser.parse(null, TestTokenPayload.class))
                 .isInstanceOf(NullPointerException.class)
                 .hasMessage("token cannot be null");
-        assertThatThrownBy(() -> PARSER.parse("", null))
+    }
+
+    @Test
+    void parse_ShouldThrowException_WhenTargetIsNull() {
+        assertThatThrownBy(() -> parser.parse("valid.token", null))
                 .isInstanceOf(NullPointerException.class)
                 .hasMessage("target cannot be null");
     }
 
     @Test
-    void parse_ShouldReturnFailureParseResult_WhenTokenHasExpired() {
-        Instant fixedInstant = Instant.now().minus(10, ChronoUnit.MINUTES);
-
-        try (MockedStatic<Instant> instantMock = mockStatic(Instant.class)) {
-            instantMock.when(Instant::now).thenReturn(fixedInstant);
-
-            JwtGenerator generator = createGenerator(false);
-
-            String token = generator.generateAccessToken(
-                    new TestTokenPayload()
-            );
-
-            ParseResult<TestTokenPayload> result = PARSER.parse(token, TestTokenPayload.class);
-
-            assertThat(result)
-                    .isNotNull()
-                    .extracting(ParseResult::valid, ParseResult::errorMessage)
-                    .containsExactly(false, "Token has expired");
-        }
-    }
-
-    @Test
-    void parse_ShouldReturnFailureParseResult_WhenTokenHasInvalidFormat() {
-        String invalidToken = "a.b.c";
-
-        ParseResult<TestTokenPayload> result = PARSER.parse(invalidToken, TestTokenPayload.class);
-
-        assertThat(result)
-                .isNotNull()
-                .extracting(ParseResult::valid, ParseResult::errorMessage)
-                .containsExactly(false, "Invalid token format");
-    }
-
-    @Test
-    void parse_ShouldReturnFailureParseResult_WhenTokenHasInvalidSignature() {
-        JwtGenerator generator = createGenerator(true);
-
-        String tokenWithInvalidSig = generator.generateAccessToken(new TestTokenPayload());
-
-        ParseResult<TestTokenPayload> result = PARSER.parse(tokenWithInvalidSig, TestTokenPayload.class);
-
-        assertThat(result)
-                .isNotNull()
-                .extracting(ParseResult::valid, ParseResult::errorMessage)
-                .containsExactly(false, "Invalid signature");
-    }
-
-    @Test
-    void parse_ShouldReturnSuccessParseResult() {
-        JwtGenerator generator = createGenerator(false);
-
+    void parse_ShouldReturnSuccessParseResult_WhenTokenIsValid() {
         TestTokenPayload creationPayload = new TestTokenPayload();
         String token = generator.generateAccessToken(creationPayload);
 
-        ParseResult<TestTokenPayload> result = PARSER.parse(token, TestTokenPayload.class);
+        ParseResult<TestTokenPayload> result = parser.parse(token, TestTokenPayload.class);
         TestTokenPayload parsedPayload = result.result();
 
         assertThat(result)
@@ -123,17 +102,200 @@ class JwtParserTest {
                 .isEqualTo(creationPayload.sub());
     }
 
-    JwtGenerator createGenerator(boolean invalid) {
-        return new JwtGenerator(
-                invalid
-                        ? Keys.hmacShaKeyFor("abcdefghijklmnopqrstuvwxyz123456".getBytes(StandardCharsets.UTF_8))
-                        : SECRET_KEY,
-                new JwtValidityTimeProperties(60, 60),
-                OBJECT_MAPPER
-        );
+    @Test
+    void parse_ShouldReturnFailureParseResult_WhenTokenHasExpired() {
+        String expiredToken = Jwts.builder()
+                .subject("test")
+                .issuedAt(Date.from(Instant.now().minus(20, ChronoUnit.MINUTES)))
+                .expiration(Date.from(Instant.now().minus(10, ChronoUnit.MINUTES)))
+                .signWith(secretKey)
+                .compact();
+
+        ParseResult<TestTokenPayload> result = parser.parse(expiredToken, TestTokenPayload.class);
+
+        assertThat(result)
+                .isNotNull()
+                .extracting(ParseResult::valid, ParseResult::errorMessage)
+                .containsExactly(false, "Token has expired");
     }
 
-    record JwtParserParams(SecretKey secretKey, ObjectMapper objectMapper) {
+    @Test
+    void parse_ShouldReturnFailureParseResult_WhenTokenHasInvalidFormat() {
+        String invalidToken = "invalid.token.format";
+
+        ParseResult<TestTokenPayload> result = parser.parse(invalidToken, TestTokenPayload.class);
+
+        assertThat(result)
+                .isNotNull()
+                .extracting(ParseResult::valid, ParseResult::errorMessage)
+                .containsExactly(false, "Invalid token format");
+    }
+
+    @Test
+    void parse_ShouldReturnFailureParseResult_WhenTokenHasInvalidFormatWithWrongParts() {
+        String invalidToken = "a.b.c.d.e";
+
+        ParseResult<TestTokenPayload> result = parser.parse(invalidToken, TestTokenPayload.class);
+
+        assertThat(result)
+                .isNotNull()
+                .extracting(ParseResult::valid, ParseResult::errorMessage)
+                .containsExactly(false, "Invalid token format");
+    }
+
+    @Test
+    void parse_ShouldReturnFailureParseResult_WhenTokenHasInvalidSignature() {
+        SecretKey differentKey = Keys.hmacShaKeyFor(
+                "abcdefghijklmnopqrstuvwxyz123456".getBytes(StandardCharsets.UTF_8)
+        );
+        JwtValidityTimeProperties validityTimeProperties = new JwtValidityTimeProperties(60, 60);
+        JwtGenerator differentGenerator = new JwtGenerator(
+                differentKey, validityTimeProperties, objectMapper
+        );
+
+        String tokenWithDifferentSignature = differentGenerator.generateAccessToken(
+                new TestTokenPayload()
+        );
+
+        ParseResult<TestTokenPayload> result = parser.parse(
+                tokenWithDifferentSignature,
+                TestTokenPayload.class
+        );
+
+        assertThat(result)
+                .isNotNull()
+                .extracting(ParseResult::valid, ParseResult::errorMessage)
+                .containsExactly(false, "Invalid signature");
+    }
+
+    @Test
+    void parse_ShouldReturnFailureParseResult_WhenTokenIsMalformed() {
+        String malformedToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.INVALID_PAYLOAD.SIGNATURE";
+
+        ParseResult<TestTokenPayload> result = parser.parse(malformedToken, TestTokenPayload.class);
+
+        assertThat(result)
+                .isNotNull()
+                .extracting(ParseResult::valid, ParseResult::errorMessage)
+                .containsExactly(false, "Invalid token format");
+    }
+
+    @Test
+    void parse_ShouldReturnFailureParseResult_WhenTokenValidationFails() {
+        String invalidToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIn0.invalid_signature";
+
+        ParseResult<TestTokenPayload> result = parser.parse(invalidToken, TestTokenPayload.class);
+
+        assertThat(result)
+                .isNotNull()
+                .extracting(ParseResult::valid, ParseResult::errorMessage)
+                .containsExactly(false, "Invalid signature");
+    }
+
+    @Test
+    void parse_ShouldReturnFailureParseResult_WhenTokenHasEmptyClaims() {
+        String emptyClaimsToken = Jwts.builder()
+                .signWith(secretKey)
+                .compact();
+
+        ParseResult<TestTokenPayload> result = parser.parse(emptyClaimsToken, TestTokenPayload.class);
+
+        assertThat(result)
+                .isNotNull()
+                .extracting(ParseResult::valid)
+                .isEqualTo(false);
+        assertThat(result.errorMessage())
+                .contains("Token validation failed");
+    }
+
+    // TESTS FOR EXCEPTION HANDLING
+
+    @Test
+    void parse_ShouldReturnFailureParseResult_WhenObjectMapperConversionFails() {
+        ObjectMapper failingObjectMapper = mock(ObjectMapper.class);
+        when(failingObjectMapper.convertValue(any(), eq(TestTokenPayload.class)))
+                .thenThrow(new IllegalArgumentException("Conversion failed"));
+
+        JwtParser parserWithFailingMapper = new JwtParser(secretKey, failingObjectMapper);
+
+        TestTokenPayload payload = new TestTokenPayload();
+        String token = generator.generateAccessToken(payload);
+
+        ParseResult<TestTokenPayload> result = parserWithFailingMapper.parse(
+                token,
+                TestTokenPayload.class
+        );
+
+        assertThat(result)
+                .isNotNull()
+                .extracting(ParseResult::valid, ParseResult::errorMessage)
+                .containsExactly(false, "Token validation failed");
+    }
+
+    @Test
+    void parse_ShouldReturnFailureParseResult_WhenClaimsAreNotConvertible() {
+        ObjectMapper failingObjectMapper = mock(ObjectMapper.class);
+        when(failingObjectMapper.convertValue(any(Claims.class), eq(TestTokenPayload.class)))
+                .thenThrow(new IllegalArgumentException("Cannot convert claims"));
+
+        JwtParser parserWithFailingMapper = new JwtParser(secretKey, failingObjectMapper);
+
+        TestTokenPayload payload = new TestTokenPayload();
+        String token = generator.generateAccessToken(payload);
+
+        ParseResult<TestTokenPayload> result = parserWithFailingMapper.parse(
+                token,
+                TestTokenPayload.class
+        );
+
+        assertThat(result)
+                .isNotNull()
+                .extracting(ParseResult::valid, ParseResult::errorMessage)
+                .containsExactly(false, "Token validation failed");
+    }
+
+    @Test
+    void parse_ShouldHandleGenericJwtException() {
+        String corruptedToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9" +
+                ".eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ" +
+                ".corrupted_signature_that_is_too_short";
+
+        ParseResult<TestTokenPayload> result = parser.parse(corruptedToken, TestTokenPayload.class);
+
+        assertThat(result)
+                .isNotNull()
+                .extracting(ParseResult::valid, ParseResult::errorMessage)
+                .containsExactly(false, "Invalid signature");
+    }
+
+    // INTEGRATION TESTS
+
+    @Test
+    void parse_ShouldCorrectlyParseAllTokenFields() {
+        TestTokenPayload originalPayload = new TestTokenPayload();
+        String token = generator.generateAccessToken(originalPayload);
+
+        ParseResult<TestTokenPayload> result = parser.parse(token, TestTokenPayload.class);
+
+        assertThat(result.valid()).isTrue();
+        assertThat(result.result())
+                .isNotNull()
+                .extracting(TestTokenPayload::sub)
+                .isEqualTo(originalPayload.sub());
+    }
+
+    @Test
+    void parse_ShouldHandleNullFieldsInPayload() {
+        TestTokenPayload payloadWithNulls = new TestTokenPayload(null, null, null);
+        String token = generator.generateAccessToken(payloadWithNulls);
+
+        ParseResult<TestTokenPayload> result = parser.parse(token, TestTokenPayload.class);
+
+        assertThat(result.valid()).isTrue();
+        assertThat(result.result())
+                .isNotNull();
+
+        assertThat(result.result().sub()).isNull();
     }
 
     record TestTokenPayload(UUID sub, Long iat, Long exp) implements TokenPayload {
@@ -142,7 +304,7 @@ class JwtParserTest {
         }
 
         @Override
-        public @NonNull JsonTokenType getTokenType() {
+        public JsonTokenType getTokenType() {
             return JsonTokenType.ACCESS;
         }
     }

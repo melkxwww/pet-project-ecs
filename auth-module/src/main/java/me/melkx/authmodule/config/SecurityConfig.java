@@ -1,6 +1,6 @@
-package me.melkx.authmodule.core.config;
+package me.melkx.authmodule.config;
 
-import me.melkx.authmodule.common.filter.FormattedAuthenticationEntryPoint;
+import me.melkx.authmodule.filter.FormattedAuthenticationEntryPoint;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;

@@ -1,5 +1,6 @@
 package me.melkx.authmodule.jwt.provider;
 
+import lombok.extern.slf4j.Slf4j;
 import me.melkx.authmodule.api.dto.AuthenticationContext;
 import me.melkx.authmodule.api.service.AuthenticationContextProvider;
 import me.melkx.authmodule.jwt.dto.AccessTokenPayload;
@@ -15,6 +16,7 @@ import org.springframework.security.core.AuthenticationException;
 
 import java.util.Objects;
 
+@Slf4j
 public class JwtAuthenticationProvider implements AuthenticationProvider {
     private final AuthenticationContextProvider contextProvider;
     private final JwtParser jwtParser;
@@ -26,6 +28,8 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     public @Nullable Authentication authenticate(Authentication authentication) throws AuthenticationException {
+        log.debug("Authentication JWT strategy started");
+
         Objects.requireNonNull(authentication, "authentication cannot be null");
 
         if (!(authentication instanceof JwtAuthenticationToken token))
@@ -36,9 +40,13 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
         if(jwtToken == null)
             throw new AuthenticationServiceException("Invalid authentication token");
 
+        log.debug("Authentication token correct");
+
         ParseResult<AccessTokenPayload> result = jwtParser.parse(jwtToken, AccessTokenPayload.class);
         if (!result.valid() || result.result() == null)
             throw new BadCredentialsException("Bad token provided: " + result.errorMessage());
+
+        log.debug("Parsing correct");
 
         AuthenticationContext authorization = contextProvider.loadContextByPublicId(result.result().sub());
         authentication = new JwtAuthenticationToken(
@@ -46,6 +54,9 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
                 authorization.authorities()
         );
         authentication.setAuthenticated(true);
+
+        log.debug("Authentication JWT strategy successful!");
+
         return authentication;
     }
 
