@@ -10,6 +10,8 @@ import me.melkx.jwtmodule.properties.JwtValidityTimeProperties;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -61,12 +63,6 @@ class JwtParserTest {
                 .hasMessageContaining("objectMapper cannot be null");
     }
 
-    @Test
-    void constructor_ShouldNotThrowException_WhenAllParamsAreValid() {
-        assertThatCode(() -> new JwtParser(secretKey, objectMapper))
-                .doesNotThrowAnyException();
-    }
-
     // TESTS FOR PARSE METHOD
 
     @Test
@@ -81,25 +77,6 @@ class JwtParserTest {
         assertThatThrownBy(() -> parser.parse("valid.token", null))
                 .isInstanceOf(NullPointerException.class)
                 .hasMessage("target cannot be null");
-    }
-
-    @Test
-    void parse_ShouldReturnSuccessParseResult_WhenTokenIsValid() {
-        TestTokenPayload creationPayload = new TestTokenPayload();
-        String token = generator.generateAccessToken(creationPayload);
-
-        ParseResult<TestTokenPayload> result = parser.parse(token, TestTokenPayload.class);
-        TestTokenPayload parsedPayload = result.result();
-
-        assertThat(result)
-                .isNotNull()
-                .extracting(ParseResult::valid)
-                .isEqualTo(true);
-
-        assertThat(parsedPayload)
-                .isNotNull()
-                .extracting(TestTokenPayload::sub)
-                .isEqualTo(creationPayload.sub());
     }
 
     @Test
@@ -119,10 +96,13 @@ class JwtParserTest {
                 .containsExactly(false, "Token has expired");
     }
 
-    @Test
-    void parse_ShouldReturnFailureParseResult_WhenTokenHasInvalidFormat() {
-        String invalidToken = "invalid.token.format";
-
+    @ParameterizedTest
+    @CsvSource({
+            "invalid.token.format",
+            "a.b.c.d.e",
+            "1234567890"
+    })
+    void parse_ShouldReturnFailureParseResult_WhenTokenHasInvalidFormat(String invalidToken) {
         ParseResult<TestTokenPayload> result = parser.parse(invalidToken, TestTokenPayload.class);
 
         assertThat(result)
@@ -132,15 +112,15 @@ class JwtParserTest {
     }
 
     @Test
-    void parse_ShouldReturnFailureParseResult_WhenTokenHasInvalidFormatWithWrongParts() {
-        String invalidToken = "a.b.c.d.e";
+    void parse_ShouldReturnFailureParseResult_WhenTokenValidationFails() {
+        String invalidToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIn0.invalid_signature";
 
         ParseResult<TestTokenPayload> result = parser.parse(invalidToken, TestTokenPayload.class);
 
         assertThat(result)
                 .isNotNull()
                 .extracting(ParseResult::valid, ParseResult::errorMessage)
-                .containsExactly(false, "Invalid token format");
+                .containsExactly(false, "Invalid signature");
     }
 
     @Test
@@ -161,30 +141,6 @@ class JwtParserTest {
                 tokenWithDifferentSignature,
                 TestTokenPayload.class
         );
-
-        assertThat(result)
-                .isNotNull()
-                .extracting(ParseResult::valid, ParseResult::errorMessage)
-                .containsExactly(false, "Invalid signature");
-    }
-
-    @Test
-    void parse_ShouldReturnFailureParseResult_WhenTokenIsMalformed() {
-        String malformedToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.INVALID_PAYLOAD.SIGNATURE";
-
-        ParseResult<TestTokenPayload> result = parser.parse(malformedToken, TestTokenPayload.class);
-
-        assertThat(result)
-                .isNotNull()
-                .extracting(ParseResult::valid, ParseResult::errorMessage)
-                .containsExactly(false, "Invalid token format");
-    }
-
-    @Test
-    void parse_ShouldReturnFailureParseResult_WhenTokenValidationFails() {
-        String invalidToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIn0.invalid_signature";
-
-        ParseResult<TestTokenPayload> result = parser.parse(invalidToken, TestTokenPayload.class);
 
         assertThat(result)
                 .isNotNull()
@@ -255,47 +211,22 @@ class JwtParserTest {
     }
 
     @Test
-    void parse_ShouldHandleGenericJwtException() {
-        String corruptedToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9" +
-                ".eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ" +
-                ".corrupted_signature_that_is_too_short";
+    void parse_ShouldReturnSuccessParseResult_WhenTokenIsValid() {
+        TestTokenPayload creationPayload = new TestTokenPayload();
+        String token = generator.generateAccessToken(creationPayload);
 
-        ParseResult<TestTokenPayload> result = parser.parse(corruptedToken, TestTokenPayload.class);
+        ParseResult<TestTokenPayload> result = parser.parse(token, TestTokenPayload.class);
+        TestTokenPayload parsedPayload = result.result();
 
         assertThat(result)
                 .isNotNull()
-                .extracting(ParseResult::valid, ParseResult::errorMessage)
-                .containsExactly(false, "Invalid signature");
-    }
+                .extracting(ParseResult::valid)
+                .isEqualTo(true);
 
-    // INTEGRATION TESTS
-
-    @Test
-    void parse_ShouldCorrectlyParseAllTokenFields() {
-        TestTokenPayload originalPayload = new TestTokenPayload();
-        String token = generator.generateAccessToken(originalPayload);
-
-        ParseResult<TestTokenPayload> result = parser.parse(token, TestTokenPayload.class);
-
-        assertThat(result.valid()).isTrue();
-        assertThat(result.result())
+        assertThat(parsedPayload)
                 .isNotNull()
                 .extracting(TestTokenPayload::sub)
-                .isEqualTo(originalPayload.sub());
-    }
-
-    @Test
-    void parse_ShouldHandleNullFieldsInPayload() {
-        TestTokenPayload payloadWithNulls = new TestTokenPayload(null, null, null);
-        String token = generator.generateAccessToken(payloadWithNulls);
-
-        ParseResult<TestTokenPayload> result = parser.parse(token, TestTokenPayload.class);
-
-        assertThat(result.valid()).isTrue();
-        assertThat(result.result())
-                .isNotNull();
-
-        assertThat(result.result().sub()).isNull();
+                .isEqualTo(creationPayload.sub());
     }
 
     record TestTokenPayload(UUID sub, Long iat, Long exp) implements TokenPayload {

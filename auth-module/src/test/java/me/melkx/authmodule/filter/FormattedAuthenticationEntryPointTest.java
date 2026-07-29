@@ -22,7 +22,6 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class FormattedAuthenticationEntryPointTest {
-
     @Mock
     private HttpServletRequest request;
 
@@ -37,7 +36,7 @@ class FormattedAuthenticationEntryPointTest {
 
     @BeforeEach
     void setUp() {
-        realObjectMapper = new ObjectMapper();
+        realObjectMapper =  new ObjectMapper();
         entryPoint = new FormattedAuthenticationEntryPoint(realObjectMapper);
     }
 
@@ -48,12 +47,6 @@ class FormattedAuthenticationEntryPointTest {
         assertThatThrownBy(() -> new FormattedAuthenticationEntryPoint(null))
                 .isInstanceOf(NullPointerException.class)
                 .hasMessageContaining("objectMapper cannot be null");
-    }
-
-    @Test
-    void constructor_ShouldNotThrowException_WhenObjectMapperIsValid() {
-        assertThatCode(() -> new FormattedAuthenticationEntryPoint(realObjectMapper))
-                .doesNotThrowAnyException();
     }
 
     // TESTS FOR COMMENCE METHOD

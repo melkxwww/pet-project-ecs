@@ -5,13 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="21f87305-e6ab-4238-a7ee-9c22ab4bf45b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/auth-module/src/test/java/me/melkx/authmodule/jwt/converter/JwtAuthenticationConverterTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/auth-module/src/test/java/me/melkx/authmodule/jwt/provider/JwtAuthenticationProviderTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jwt-module/src/test/java/me/melkx/jwtmodule/preparer/JwtSecretKeyPreparerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/jwt-module/src/test/java/me/melkx/jwtmodule/preparer/JwtSecretKeyPreparerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth-module/src/test/java/me/melkx/authmodule/filter/DelegatingAuthenticationFilterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/auth-module/src/test/java/me/melkx/authmodule/filter/DelegatingAuthenticationFilterTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth-module/src/test/java/me/melkx/authmodule/filter/FormattedAuthenticationEntryPointTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/auth-module/src/test/java/me/melkx/authmodule/filter/FormattedAuthenticationEntryPointTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jwt-module/src/test/java/me/melkx/jwtmodule/service/JwtGeneratorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/jwt-module/src/test/java/me/melkx/jwtmodule/service/JwtGeneratorTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jwt-module/src/test/java/me/melkx/jwtmodule/service/JwtParserTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/jwt-module/src/test/java/me/melkx/jwtmodule/service/JwtParserTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jwt-module/target/classes/me/melkx/jwtmodule/dto/JsonTokenType.class" beforeDir="false" afterPath="$PROJECT_DIR$/jwt-module/target/classes/me/melkx/jwtmodule/dto/JsonTokenType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jwt-module/target/jwt-module-0.0.1.jar" beforeDir="false" afterPath="$PROJECT_DIR$/jwt-module/target/jwt-module-0.0.1.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jwt-module/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/jwt-module/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jwt-module/target/surefire-reports/TEST-me.melkx.jwtmodule.preparer.JwtSecretKeyPreparerTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/jwt-module/target/surefire-reports/TEST-me.melkx.jwtmodule.preparer.JwtSecretKeyPreparerTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jwt-module/target/surefire-reports/TEST-me.melkx.jwtmodule.service.JwtGeneratorTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/jwt-module/target/surefire-reports/TEST-me.melkx.jwtmodule.service.JwtGeneratorTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jwt-module/target/surefire-reports/TEST-me.melkx.jwtmodule.service.JwtParserTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/jwt-module/target/surefire-reports/TEST-me.melkx.jwtmodule.service.JwtParserTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jwt-module/target/surefire-reports/me.melkx.jwtmodule.preparer.JwtSecretKeyPreparerTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/jwt-module/target/surefire-reports/me.melkx.jwtmodule.preparer.JwtSecretKeyPreparerTest.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jwt-module/target/surefire-reports/me.melkx.jwtmodule.service.JwtGeneratorTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/jwt-module/target/surefire-reports/me.melkx.jwtmodule.service.JwtGeneratorTest.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jwt-module/target/surefire-reports/me.melkx.jwtmodule.service.JwtParserTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/jwt-module/target/surefire-reports/me.melkx.jwtmodule.service.JwtParserTest.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jwt-module/target/test-classes/me/melkx/jwtmodule/preparer/JwtSecretKeyPreparerTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/jwt-module/target/test-classes/me/melkx/jwtmodule/preparer/JwtSecretKeyPreparerTest.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jwt-module/target/test-classes/me/melkx/jwtmodule/service/JwtGeneratorTest$AccessTokenPayload.class" beforeDir="false" afterPath="$PROJECT_DIR$/jwt-module/target/test-classes/me/melkx/jwtmodule/service/JwtGeneratorTest$AccessTokenPayload.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jwt-module/target/test-classes/me/melkx/jwtmodule/service/JwtGeneratorTest$RefreshTokenPayload.class" beforeDir="false" afterPath="$PROJECT_DIR$/jwt-module/target/test-classes/me/melkx/jwtmodule/service/JwtGeneratorTest$RefreshTokenPayload.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jwt-module/target/test-classes/me/melkx/jwtmodule/service/JwtGeneratorTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/jwt-module/target/test-classes/me/melkx/jwtmodule/service/JwtGeneratorTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jwt-module/target/test-classes/me/melkx/jwtmodule/service/JwtParserTest$JwtParserParams.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/jwt-module/target/test-classes/me/melkx/jwtmodule/service/JwtParserTest$TestTokenPayload.class" beforeDir="false" afterPath="$PROJECT_DIR$/jwt-module/target/test-classes/me/melkx/jwtmodule/service/JwtParserTest$TestTokenPayload.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jwt-module/target/test-classes/me/melkx/jwtmodule/service/JwtParserTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/jwt-module/target/test-classes/me/melkx/jwtmodule/service/JwtParserTest.class" afterDir="false" />
     </list>
@@ -89,6 +102,8 @@
       <recent name="" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
+      <recent name="me.melkx.authmodule.jwt.provider" />
+      <recent name="me.melkx.authmodule.jwt.converter" />
       <recent name="me.melkx.authmodule.filter" />
       <recent name="me.melkx.jwtmodule.preparer" />
       <recent name="me.melkx.jwtmodule.service" />
@@ -99,7 +114,7 @@
       <command value="mvn clean install" />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.JwtSecretKeyPreparerTest">
+  <component name="RunManager" selected="JUnit.JwtParserTest">
     <configuration name="DelegatingAuthenticationFilterTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="auth-module" />
       <extension name="coverage">
@@ -111,22 +126,6 @@
       <option name="PACKAGE_NAME" value="me.melkx.authmodule.filter" />
       <option name="MAIN_CLASS_NAME" value="me.melkx.authmodule.filter.DelegatingAuthenticationFilterTest" />
       <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="DelegatingAuthenticationFilterTest.shouldNotFilter_ShouldReturnFalse_WhenSkipMatcherIsNull" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="auth-module" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="me.melkx.authmodule.filter.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="me.melkx.authmodule.filter" />
-      <option name="MAIN_CLASS_NAME" value="me.melkx.authmodule.filter.DelegatingAuthenticationFilterTest" />
-      <option name="METHOD_NAME" value="shouldNotFilter_ShouldReturnFalse_WhenSkipMatcherIsNull" />
-      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -161,6 +160,21 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="JwtParserTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="jwt-module" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="me.melkx.jwtmodule.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="me.melkx.jwtmodule.service" />
+      <option name="MAIN_CLASS_NAME" value="me.melkx.jwtmodule.service.JwtParserTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="JwtSecretKeyPreparerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="jwt-module" />
       <extension name="coverage">
@@ -178,11 +192,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.JwtParserTest" />
+        <item itemvalue="JUnit.DelegatingAuthenticationFilterTest" />
         <item itemvalue="JUnit.JwtSecretKeyPreparerTest" />
         <item itemvalue="JUnit.FormattedAuthenticationEntryPointTest" />
         <item itemvalue="JUnit.JwtGeneratorTest" />
-        <item itemvalue="JUnit.DelegatingAuthenticationFilterTest" />
-        <item itemvalue="JUnit.DelegatingAuthenticationFilterTest.shouldNotFilter_ShouldReturnFalse_WhenSkipMatcherIsNull" />
       </list>
     </recent_temporary>
   </component>

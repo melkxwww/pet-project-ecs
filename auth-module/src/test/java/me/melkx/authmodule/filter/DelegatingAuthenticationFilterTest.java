@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -35,17 +36,10 @@ class DelegatingAuthenticationFilterTest {
     @Mock
     private RequestMatcher matcher;
 
+    @InjectMocks
     private DelegatingAuthenticationFilter filter;
 
-    @BeforeEach
-    void setUp() {
-        filter = new DelegatingAuthenticationFilter(
-                authenticationManager,
-                authenticationConverter,
-                entryPoint,
-                matcher
-        );
-    }
+    // TESTS FOR CONSTRUCTOR
 
     @Test
     void constructor_ShouldThrowException_WhenAuthenticationManagerIsNull() {
@@ -78,6 +72,8 @@ class DelegatingAuthenticationFilterTest {
                 .doesNotThrowAnyException();
     }
 
+    // TESTS FOR DO FILTER INTERNAL METHOD
+
     @Test
     void doFilterInternal_ShouldCommence_WhenAuthenticationConverterThrowsException() throws ServletException, IOException {
         HttpServletRequest request = mock(HttpServletRequest.class);
@@ -90,6 +86,7 @@ class DelegatingAuthenticationFilterTest {
         filter.doFilterInternal(request, response, filterChain);
 
         verify(entryPoint).commence(eq(request), eq(response), any());
+        assertThat(SecurityContextHolder.getContext().getAuthentication()).isNull();
     }
 
     @Test
@@ -124,6 +121,21 @@ class DelegatingAuthenticationFilterTest {
         filter.doFilterInternal(request, response, filterChain);
 
         verify(entryPoint).commence(eq(request), eq(response), any());
+        assertThat(SecurityContextHolder.getContext().getAuthentication()).isNull();
+    }
+
+    @Test
+    void doFilterInternal_ShouldCommence_WhenUnexpectedExceptionThrown() throws ServletException, IOException {
+        HttpServletRequest request = mock(HttpServletRequest.class);
+        HttpServletResponse response = mock(HttpServletResponse.class);
+        FilterChain filterChain = mock(FilterChain.class);
+
+        when(authenticationConverter.convert(request)).thenThrow(RuntimeException.class);
+
+        filter.doFilterInternal(request, response, filterChain);
+
+        verify(entryPoint).commence(eq(request), eq(response), any(AuthenticationServiceException.class));
+        assertThat(SecurityContextHolder.getContext().getAuthentication()).isNull();
     }
 
     @Test
@@ -144,19 +156,7 @@ class DelegatingAuthenticationFilterTest {
         assertThat(SecurityContextHolder.getContext().getAuthentication()).isEqualTo(authResult);
     }
 
-    @Test
-    void doFilterInternal_ShouldCommence_WhenUnexpectedExceptionThrown() throws ServletException, IOException {
-        HttpServletRequest request = mock(HttpServletRequest.class);
-        HttpServletResponse response = mock(HttpServletResponse.class);
-        FilterChain filterChain = mock(FilterChain.class);
-
-        when(authenticationConverter.convert(request)).thenThrow(RuntimeException.class);
-
-        filter.doFilterInternal(request, response, filterChain);
-
-        verify(entryPoint).commence(eq(request), eq(response), any(AuthenticationServiceException.class));
-        assertThat(SecurityContextHolder.getContext().getAuthentication()).isNull();
-    }
+    // TESTS FOR SHOULD NOT FILTER METHOD
 
     @Test
     void shouldNotFilter_ShouldReturnFalse_WhenSkipMatcherIsNull() {

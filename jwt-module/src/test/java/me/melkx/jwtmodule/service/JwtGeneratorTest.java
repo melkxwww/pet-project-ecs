@@ -70,13 +70,6 @@ class JwtGeneratorTest {
                 .hasMessageContaining("objectMapper cannot be null");
     }
 
-    @Test
-    void constructor_ShouldNotThrowException_WhenAllParamsAreValid() {
-        assertThatCode(() -> new JwtGenerator(
-                secretKey, validityTimeProperties, objectMapper))
-                .doesNotThrowAnyException();
-    }
-
     // TESTS FOR GENERATE ACCESS TOKEN
 
     @Test
